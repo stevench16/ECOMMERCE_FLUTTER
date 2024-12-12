@@ -1,0 +1,11 @@
+trigger:
+  - main  # Detecta cambios en la rama principal (main)
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - checkout: self  # Descarga el repositorio conectado desde GitHub
+
+  - script: echo "Sincronización exitosa con GitHub"
+    displayName: 'Validar sincronización'
