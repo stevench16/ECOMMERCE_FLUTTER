@@ -1,3 +1,6 @@
+import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultButton.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultIconBack.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTextfield.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -28,24 +31,97 @@ class RegisterPage extends StatelessWidget {
                 color: Color.fromRGBO(255, 255, 255, 0.3),
                 borderRadius: BorderRadius.all(Radius.circular(25))
               ),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 100,
-                  ),
-                  Text(
-                    'REGISTRO',
-                    style: TextStyle(
-                      fontSize: 20,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.person,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold
+                      size: 100,
                     ),
-                  )
-                ],
+                    Text(
+                      'REGISTRO',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25, right: 25),
+                      child: DefaultTextField(
+                        label: 'Nombre', 
+                        icon: Icons.person, 
+                        onChange: (text){}
+                        ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25, right: 25),
+                      child: DefaultTextField(
+                        label: 'Apellido', 
+                        icon: Icons.person, 
+                        onChange: (text){}
+                        ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25, right: 25),
+                      child: DefaultTextField(
+                        label: 'Email', 
+                        icon: Icons.email, 
+                        onChange: (text){}
+                        ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25, right: 25),
+                      child: DefaultTextField(
+                        label: 'Telefono', 
+                        icon: Icons.phone, 
+                        onChange: (text){}
+                        ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25, right: 25),
+                      child: DefaultTextField(
+                        label: 'Contraseña', 
+                        icon: Icons.lock, 
+                        onChange: (text){}
+                        ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25, right: 25),
+                      child: DefaultTextField(
+                        label: 'Confirma la Contraseña', 
+                        icon: Icons.lock_outline, 
+                        onChange: (text){}
+                        ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25, right: 25, top: 65),
+                      child: DefaultButton(
+                        text: 'REGISTRARSE', 
+                        onPressed:  () {}
+                        ),
+                    ),
+                  ],
+                ),
               ),
-            )
+            ),
+            DefaultIconBack(
+              left: 45, 
+              top:15,
+              ),
+              Container(
+              alignment: Alignment.topLeft,
+              margin: EdgeInsets.only(left: 45, top:135),
+              child: IconButton(
+                onPressed: () { Navigator.pop(context); },
+                icon: Icon(
+                      Icons.arrow_back_ios,
+                      size: 35,
+                      color: Colors.white
+                )
+                ),
+            ),
           ],
         ),
       )
