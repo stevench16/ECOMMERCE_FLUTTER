@@ -7,7 +7,7 @@ IconData icon;
 Function(String text) onChange;
 bool obscureText;
 
-  DefaultTextField({
+  DefaultTextField({super.key, 
     required this.label,
     required this.icon,
     required this.onChange,

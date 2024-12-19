@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() { // Ejecuta una sola vez cuando carga la pantalla
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _loginBlocCubit?.dispose();
     });
     _loginBlocCubit?.dispose();
