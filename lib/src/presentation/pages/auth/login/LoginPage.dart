@@ -3,6 +3,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTex
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -102,19 +103,30 @@ class _LoginPageState extends State<LoginPage> {
                       width: MediaQuery.of(context).size.width,
                       height: 55,
                       margin: EdgeInsets.only(left: 25, right: 25, top: 15, bottom: 15),
-                      child: ElevatedButton(
-                        onPressed: (){
-                          _loginBlocCubit?.login();
-                        },
-                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlueAccent
-                       ),
-                       child: Text(
-                        'INICIAR SESION',
-                        style: TextStyle(
-                          color: Colors.white
-                        ),
-                       ),
+                      child: StreamBuilder(
+                        stream: _loginBlocCubit?.validateForm,
+                        builder: (context, snapshot) {
+                          return ElevatedButton(
+                            onPressed: (){
+                              if (snapshot.hasData){
+                                _loginBlocCubit?.login();
+                              }
+                              else{
+                                print('No valido');
+                              }
+                              _loginBlocCubit?.login();
+                            },
+                           style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightBlueAccent
+                           ),
+                           child: Text(
+                            'INICIAR SESION',
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                           ),
+                          );
+                        }
                       ),
                     ),
                     Row(

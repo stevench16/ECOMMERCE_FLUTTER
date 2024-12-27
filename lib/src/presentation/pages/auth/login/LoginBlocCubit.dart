@@ -34,7 +34,7 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
     emailStream, passwordStream, (a, b) => true
     );
 
-    void dispose() { // Cuando pasemos a otra plantilla
+    void dispose() { // Cuando pasemos a otra pantalla
       changeEmail('');
       changePassword('');
 
