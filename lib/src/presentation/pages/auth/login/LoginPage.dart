@@ -2,6 +2,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/auth/login/LoginBlocCub
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -17,12 +18,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() { // Ejecuta una sola vez cuando carga la pantalla
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       _loginBlocCubit?.dispose();
     });
-    _loginBlocCubit?.dispose();
   }
 
   @override
@@ -112,12 +111,14 @@ class _LoginPageState extends State<LoginPage> {
                                 _loginBlocCubit?.login();
                               }
                               else{
-                                print('No valido');
+                                Fluttertoast.showToast(
+                                  msg: 'El Formulario no es valido',
+                                  toastLength: Toast.LENGTH_LONG
+                                  );
                               }
-                              _loginBlocCubit?.login();
                             },
                            style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlueAccent
+                            backgroundColor: snapshot.hasData ? Colors.lightBlueAccent : Colors.grey
                            ),
                            child: Text(
                             'INICIAR SESION',
