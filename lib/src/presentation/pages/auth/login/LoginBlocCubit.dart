@@ -12,17 +12,17 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
   Stream<String> get passwordStream => _passwordController.stream;
 
   void changeEmail(String email) {
-    if (email.length < 6) {
-      _emailController.sink.addError('El email debe tener mas de 6 caracteres');
+    if (email.isNotEmpty && email.length < 3) {
+      _emailController.sink.addError('No es un E-mail válido');
     } else {
       _emailController.sink.add(email);
     }
   }
 
   void changePassword(String password) {
-    if (password.length < 6) {
+    if (password.isNotEmpty && password.length < 6) {
       _passwordController.sink
-          .addError('El password debe tener mas de 6 caracteres');
+          .addError('La contraseña debe tener mas de 6 caracteres');
     } else {
       _passwordController.sink.add(password);
     }

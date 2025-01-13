@@ -76,7 +76,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         builder: (context, snapshot) {
                           return DefaultTextField(
                             label: 'Nombre', 
-                            icon: Icons.person, 
+                            icon: Icons.person,
+                            errorText: snapshot.error?.toString(), 
                             onChange: (text){
                               _registerBlocCubit?.changeName(text);
                             }
@@ -91,7 +92,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         builder: (context, snapshot) {
                           return DefaultTextField(
                             label: 'Apellido', 
-                            icon: Icons.person, 
+                            icon: Icons.person,
+                            errorText: snapshot.error?.toString(), 
                             onChange: (text){
                               _registerBlocCubit?.changeLastName(text);
                             }
@@ -106,7 +108,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         builder: (context, snapshot) {
                           return DefaultTextField(
                             label: 'Email', 
-                            icon: Icons.email, 
+                            icon: Icons.email,
+                            errorText: snapshot.error?.toString(), 
                             onChange: (text){
                               _registerBlocCubit?.changeEmail(text);
                             }
@@ -121,7 +124,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         builder: (context, snapshot) {
                           return DefaultTextField(
                             label: 'Telefono', 
-                            icon: Icons.phone, 
+                            icon: Icons.phone,
+                            errorText: snapshot.error?.toString(), 
                             onChange: (text){
                               _registerBlocCubit?.changePhone(text);
                             }
@@ -137,6 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return DefaultTextField(
                             label: 'Contraseña', 
                             icon: Icons.lock,
+                            errorText: snapshot.error?.toString(), 
                             obscureText: true, 
                             onChange: (text){
                               _registerBlocCubit?.changePassword(text);
@@ -153,6 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return DefaultTextField(
                             label: 'Confirma la Contraseña', 
                             icon: Icons.lock_outline,
+                            errorText: snapshot.error?.toString(), 
                             obscureText: true,  
                             onChange: (text){
                               _registerBlocCubit?.changeConfirmPassword(text);

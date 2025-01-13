@@ -40,7 +40,7 @@ Stream<bool> get validateForm => Rx.combineLatest6(
   }
 
 void changeName(String name){
-  if (name.length < 2){
+  if (name.isNotEmpty && name.length < 2){
     _nameController.sink.addError('El nombre es muy corto');
   }
   else {
@@ -49,7 +49,7 @@ void changeName(String name){
 }
 
 void changeLastName(String lastname){
-  if (lastname.length < 2){
+  if (lastname.isNotEmpty && lastname.length < 2){
     _lastnameController.sink.addError('El apellido es muy corto');
   }
   else {
@@ -73,8 +73,8 @@ void changeEmail(String email) {
   }
 
 void changePhone(String phone){
-  if (phone.length < 8){
-    _phoneController.sink.addError('No es un numero de telefono valido');
+  if (phone.isNotEmpty && phone.length < 8){
+    _phoneController.sink.addError('No es un numero de telefono');
   }
   else {
     _phoneController.sink.add(phone);
@@ -82,7 +82,7 @@ void changePhone(String phone){
 }
 
 void changePassword(String password){
-  if (password.length < 6){
+  if (password.isNotEmpty && password.length < 6){
     _passwordController.sink.addError('Al menos 6 caracteres');
   }
   else {
@@ -91,7 +91,7 @@ void changePassword(String password){
 }
 
 void changeConfirmPassword(String confirmPassword){
-  if (confirmPassword.length < 6){
+  if (confirmPassword.isNotEmpty && confirmPassword.length < 6){
     _confirmpasswordController.sink.addError('Al menos 6 caracteres');
   }
   else if (confirmPassword != _passwordController.value){
