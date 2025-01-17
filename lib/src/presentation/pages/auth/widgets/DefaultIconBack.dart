@@ -5,7 +5,7 @@ class DefaultIconBack extends StatelessWidget {
 double left;
 double top;
 
-  DefaultIconBack({
+  DefaultIconBack({super.key, 
     required this.left,
     required this.top
   });

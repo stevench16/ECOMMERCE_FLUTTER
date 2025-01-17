@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _registerBlocCubit = BlocProvider.of<RegisterBlocCubit>(context, listen: false);
 
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
 

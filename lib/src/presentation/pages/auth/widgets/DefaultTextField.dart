@@ -6,13 +6,15 @@ String label;
 String? errorText;
 IconData icon;
 Function(String text) onChange;
+VoidCallback? onTap;
 bool obscureText;
 
-  DefaultTextField({
+  DefaultTextField({super.key, 
     required this.label,
     required this.icon,
     required this.onChange,
     this.errorText,
+    this.onTap,
     this.obscureText=false
     
   });
@@ -24,6 +26,7 @@ bool obscureText;
       onChanged: (text){
         onChange(text);
       },
+      onTap: onTap,
       decoration: InputDecoration(
         label: Text(
           label,
