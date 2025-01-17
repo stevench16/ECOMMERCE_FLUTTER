@@ -42,7 +42,8 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
             r"(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@\$!%*?&])[A-Za-z\d@\$!%*?&]{6,}")
         .hasMatch(password)) {
       _passwordController.sink.addError(
-          'La contraseña debe Incluir:Mayúsculas, Minúsculas, números y Carácteres.');
+          'La contraseña debe Incluir:\n'
+          'Mayúsculas, Minúsculas, números y Carácteres.');
     } else {
       _passwordController.sink.add(password);
       //emit(state.copyWith(isPasswordValid: true));
