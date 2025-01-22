@@ -39,7 +39,7 @@ class LoginBlocCubit extends Cubit<LoginBlocState> {
       Rx.combineLatest2(emailStream, passwordStream, (a, b) => true);
 
   void login() async {
-    
+    _responseController.add(Loading());
     Resource response = await authservice.login(_emailController.value, _passwordController.value);
     _responseController.add(response);
     Future.delayed(Duration(seconds: 1), () {

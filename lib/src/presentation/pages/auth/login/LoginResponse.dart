@@ -16,7 +16,10 @@ class LoginResponse extends StatelessWidget {
         stream: bloc?.responseStream,
         builder: (context, snapshot) {
           final state = snapshot.data;
-          if (state is Error) {
+          if (state is Loading){
+            return Center(child: CircularProgressIndicator(color: Colors.black));
+          }
+          else if (state is Error) {
             Fluttertoast.showToast(
                 msg: state.message, toastLength: Toast.LENGTH_LONG);
           } else if (state is Success) {
