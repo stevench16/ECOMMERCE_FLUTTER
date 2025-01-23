@@ -3,9 +3,9 @@ import 'package:ecommerce_flutter/src/domain/models/User.dart';
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 
-class Authrepositoryimpl implements Authrepository {
+class AuthRepositoryImpl implements AuthRepository {
   
-  Authservice authService = Authservice();
+  AuthService authService = AuthService();
 
   @override
   Future<Resource> login(String email, String password) {

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:ecommerce_flutter/src/data/api/ApiConfig.dart';
 import 'package:ecommerce_flutter/src/domain/models/AuthResponse.dart';
 
-class Authservice {
+class AuthService {
 
   Future<Resource> login(String email, String password) async {
     try {
