@@ -1,28 +1,30 @@
 import 'package:ecommerce_flutter/src/domain/models/Role.dart';
 
 class User {
-    int id;
+    int? id;
     String name;
     String lastname;
     String email;
     String phone;
-    String image;
-    dynamic notificationToken;
-    DateTime createdAt;
-    DateTime updateAt;
-    List<Role> roles;
+    String? password;
+    String? image;
+    String? notificationToken;
+    DateTime? createdAt;
+    DateTime? updateAt;
+    List<Role>? roles;
 
     User({
-        required this.id,
+        this.id,
         required this.name,
         required this.lastname,
         required this.email,
         required this.phone,
-        required this.image,
-        required this.notificationToken,
-        required this.createdAt,
-        required this.updateAt,
-        required this.roles,
+        this.password,
+        this.image,
+        this.notificationToken,
+        this.createdAt,
+        this.updateAt,
+        this.roles,
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
@@ -32,6 +34,7 @@ class User {
         email: json["email"],
         phone: json["phone"],
         image: json["image"],
+        password: json["password"],
         notificationToken: json["notification_token"],
         createdAt: DateTime.parse(json["created_at"]),
         updateAt: DateTime.parse(json["update_at"]),

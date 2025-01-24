@@ -1,10 +1,16 @@
+import 'package:ecommerce_flutter/src/domain/models/AuthResponse.dart';
+import 'package:ecommerce_flutter/src/domain/models/User.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart';
+import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/register/RegisterBlocState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 class RegisterBlocCubit extends Cubit<RegisterBlocState>{
 
-  RegisterBlocCubit(): super(RegisterInitial());
+  AuthUseCases authUseCases;
+
+  RegisterBlocCubit(this.authUseCases): super(RegisterInitial());
 
 final _nameController = BehaviorSubject<String>();
 final _lastnameController = BehaviorSubject<String>();
@@ -12,6 +18,7 @@ final _emailController = BehaviorSubject<String>();
 final _phoneController = BehaviorSubject<String>();
 final _passwordController = BehaviorSubject<String>();
 final _confirmpasswordController = BehaviorSubject<String>();
+final _responseController = BehaviorSubject<Resource>();
 
 Stream<String> get nameStream => _nameController.stream;
 Stream<String> get lastnameStream => _lastnameController.stream;
@@ -19,6 +26,7 @@ Stream<String> get emailStream => _emailController.stream;
 Stream<String> get phoneStream => _phoneController.stream;
 Stream<String> get passwordStream => _passwordController.stream;
 Stream<String> get confirmpasswordStream => _confirmpasswordController.stream;
+Stream<Resource> get responseStream => _responseController.stream;
 
 Stream<bool> get validateForm => Rx.combineLatest6(
   nameStream,
@@ -29,14 +37,21 @@ Stream<bool> get validateForm => Rx.combineLatest6(
   confirmpasswordStream, (a, b, c, d, e, f) => true
   );
 
-  void register(){
-    print('Name: ${_nameController.value}');
-    print('Lastname: ${_lastnameController.value}');
-    print('Email: ${_emailController.value}');
-    print('Phone: ${_phoneController.value}');
-    print('Password: ${_passwordController.value}');
-    print('Confirm Password: ${_confirmpasswordController.value}');
+  toUser() => User(
+    name: _nameController.value, 
+    lastname: _lastnameController.value, 
+    email: _emailController.value, 
+    phone: _phoneController.value,
+    password: _passwordController.value   
+  );
 
+  void register() async {
+    _responseController.add(Loading());    
+    Resource<AuthResponse> response = await authUseCases.register.run(toUser());
+    _responseController.add(response);
+    Future.delayed(Duration(seconds: 1), () {
+      _responseController.add(Initial());
+    });
   }
 
 void changeName(String name){
