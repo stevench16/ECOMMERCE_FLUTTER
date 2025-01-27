@@ -39,8 +39,8 @@ class AuthService {
       // http://172.27.44.141:3000/auth/lregister
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/auth/register');
       Map<String, String> headers = {"Content-Type": "application/json" };
-      
-      final response = await http.post(url, headers: headers, body: user);
+      String body = json.encode(user.toJson());      
+      final response = await http.post(url, headers: headers, body: body);
       final data = json.decode(response.body);
       if(response.statusCode == 200 || response.statusCode == 201){
       AuthResponse authResponse = AuthResponse.fromJson(data);
