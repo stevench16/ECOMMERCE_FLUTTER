@@ -6,5 +6,5 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 List<BlocProvider> blocProviders = [
   BlocProvider<LoginBlocCubit>(create: (context) => LoginBlocCubit(locator<AuthUseCases>())),
-  BlocProvider<RegisterBlocCubit>(create: (context) => RegisterBlocCubit()),
+  BlocProvider<RegisterBlocCubit>(create: (context) => RegisterBlocCubit(locator<AuthUseCases>())),
 ];
