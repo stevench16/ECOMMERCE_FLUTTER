@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ecommerce_flutter/src/domain/models/User.dart';
+import 'package:ecommerce_flutter/src/domain/utils/ListToString.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:http/http.dart' as http;
 import 'package:ecommerce_flutter/src/data/api/ApiConfig.dart';
@@ -46,7 +47,7 @@ class AuthService {
       return Success(authResponse);
       }
       else { // Error
-      return Error(data['message']);
+      return Error(listToString(data['message']));
       }
     } catch (e) {
       print('Error: $e');

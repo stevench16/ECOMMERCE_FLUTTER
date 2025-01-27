@@ -24,7 +24,7 @@ class RegisterResponse extends StatelessWidget {
                 msg: state.message, toastLength: Toast.LENGTH_LONG);
           } else if (state is Success) {
             Fluttertoast.showToast(
-                msg: 'Login exitoso', 
+                msg: 'Registro exitoso', 
                 toastLength: Toast.LENGTH_LONG
                 );
           }
