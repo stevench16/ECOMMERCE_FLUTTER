@@ -1,12 +1,13 @@
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/login/LoginBlocCubit.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/auth/login/bloc/LoginBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginResponse extends StatelessWidget {
 
-  LoginBlocCubit? bloc;
+  LoginBloc? bloc;
   
   LoginResponse(this.bloc);
 
