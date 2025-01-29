@@ -5,6 +5,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTex
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class LoginContent extends StatelessWidget {
@@ -61,6 +62,9 @@ class LoginContent extends StatelessWidget {
                       onChange: (text) {
                         bloc?.add(EmailChanged(email: BlocFormItem(value: text)));
                       },
+                      validator: (value) {
+                        return state.email.error;
+                      },
                     )),
                 Container(
                     margin: EdgeInsets.only(left: 25, right: 25),
@@ -72,6 +76,9 @@ class LoginContent extends StatelessWidget {
                         bloc?.add(PasswordChanged(password: BlocFormItem(value: text)));
                       },
                       obscureText: true,
+                      validator: (value) {
+                        return state.password.error;
+                      },
                     )
                   ),
                 Container(
@@ -81,14 +88,14 @@ class LoginContent extends StatelessWidget {
                       EdgeInsets.only(left: 25, right: 25, top: 15, bottom: 15),
                   child: ElevatedButton(
                     onPressed: () {
-                      bloc?.add(LoginSubmit());
-                      // if (snapshot.hasData) {
-                      //   bloc?.login();
-                      // } else {
-                      //   Fluttertoast.showToast(
-                      //       msg: 'El Formulario no es valido',
-                      //       toastLength: Toast.LENGTH_LONG);
-                      // }
+                      if (state.formKey!.currentState!.validate()) {
+                        bloc?.add(LoginSubmit());
+                      }
+                      else {
+                        Fluttertoast.showToast(
+                          msg: 'El Formulario no es valido',
+                          toastLength: Toast.LENGTH_LONG);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.lightBlueAccent

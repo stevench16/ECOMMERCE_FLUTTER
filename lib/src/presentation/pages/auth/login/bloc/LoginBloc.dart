@@ -18,6 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<LoginSubmit>(_onLoginSubmit);
+    on<LoginFormReset>(_onLoginFormReset);
   } 
   
   final formKey = GlobalKey<FormState>();
@@ -27,11 +28,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   }
 
+  Future<void>_onLoginFormReset(LoginFormReset event, Emitter<LoginState> emit) async {
+    state.formKey?.currentState?.reset();
+  }
+
   Future<void> _onEmailChanged(EmailChanged event, Emitter<LoginState> emit) async {
     emit(
       state.copywith(
         email: BlocFormItem(
-          value: event.email.value
+          value: event.email.value,
+          error: event.email.value.isNotEmpty ? null : 'Ingresa el email'
         ),
         formKey: formKey
       )
@@ -42,7 +48,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(
       state.copywith(
         password: BlocFormItem(
-          value: event.password.value
+          value: event.password.value,
+          error: event.password.value.isNotEmpty && event.password.value.length >= 6 ? null : 'Ingresa el password'
         ),
         formKey: formKey
       )
@@ -73,10 +80,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<String> get emailStream => _emailController.stream;
   Stream<String> get passwordStream => _passwordController.stream;
   Stream<Resource> get responseStream => _responseController.stream;
-
-  // Stream<bool> get validateForm =>  Rx.combineLatest2(
-  //   emailStream, passwordStream, (a, b) => true
-  // );
 
   void changeEmail(String email) {
     if (email.isNotEmpty && email.length < 3) {

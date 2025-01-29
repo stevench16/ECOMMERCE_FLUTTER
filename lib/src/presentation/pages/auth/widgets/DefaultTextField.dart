@@ -6,6 +6,7 @@ String label;
 String? errorText;
 IconData icon;
 Function(String text) onChange;
+String? Function(String?)? validator;
 bool obscureText;
 
   DefaultTextField({
@@ -14,6 +15,7 @@ bool obscureText;
     required this.icon,
     required this.onChange,
     this.errorText,
+    this.validator,
     this.obscureText=false    
   }): super(key: key);
 
@@ -24,6 +26,7 @@ bool obscureText;
       onChanged: (text){
         onChange(text);
       },
+      validator: validator,
       decoration: InputDecoration(
         label: Text(
           label,
