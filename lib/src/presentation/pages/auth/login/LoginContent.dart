@@ -10,13 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoginContent extends StatelessWidget {
 
   LoginBloc? bloc;
+  LoginState state;
 
-  LoginContent(this.bloc);
+  LoginContent(this.bloc, this.state);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, state) {    
+
     return Form(
       key: state.formKey,
       child: Stack(
@@ -57,7 +57,7 @@ class LoginContent extends StatelessWidget {
                     child: DefaultTextField(
                       label: 'Correo Electrónico',
                       icon: Icons.email,
-                     // errorText: snapshot.error?.toString(),
+                      // errorText: snapshot.error?.toString(),
                       onChange: (text) {
                         bloc?.add(EmailChanged(email: BlocFormItem(value: text)));
                       },
@@ -67,7 +67,7 @@ class LoginContent extends StatelessWidget {
                     child: DefaultTextField(
                       label: 'Contraseña',
                       icon: Icons.lock,
-                     // errorText: snapshot.error?.toString(),
+                      // errorText: snapshot.error?.toString(),
                       onChange: (text) {
                         bloc?.add(PasswordChanged(password: BlocFormItem(value: text)));
                       },
@@ -141,8 +141,7 @@ class LoginContent extends StatelessWidget {
           ),
         ],
       ),
-    );
-  },
-);
+      );
+
 }
 }

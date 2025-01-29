@@ -25,7 +25,7 @@ class AuthService {
       return Success(authResponse);
       }
       else { // Error
-      return Error(data['message']);
+      return Error(listToString(data['message']));
       }
     } catch (e) {
       print('Error: $e');
@@ -36,7 +36,7 @@ class AuthService {
 
   Future<Resource<AuthResponse>> register(User user) async {
     try {
-      // http://172.27.44.141:3000/auth/lregister
+      // http://172.27.44.141:3000/auth/register
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/auth/register');
       Map<String, String> headers = {"Content-Type": "application/json" };
       String body = json.encode(user.toJson());      
