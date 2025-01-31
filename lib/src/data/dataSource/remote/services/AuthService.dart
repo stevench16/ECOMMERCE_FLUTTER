@@ -5,7 +5,7 @@ import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:http/http.dart' as http;
 import 'package:ecommerce_flutter/src/data/api/ApiConfig.dart';
 import 'package:ecommerce_flutter/src/domain/models/AuthResponse.dart';
-import 'package:injectable/injectable.dart';
+
 
 class AuthService {
 

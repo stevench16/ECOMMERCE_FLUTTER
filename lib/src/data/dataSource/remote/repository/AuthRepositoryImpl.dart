@@ -3,7 +3,6 @@ import 'package:ecommerce_flutter/src/domain/models/AuthResponse.dart';
 import 'package:ecommerce_flutter/src/domain/models/User.dart';
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
-import 'package:injectable/injectable.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   
