@@ -1,6 +1,4 @@
-import 'package:ecommerce_flutter/src/data/dataSource/remote/repository/AuthRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart';
-import 'package:injectable/injectable.dart';
 
 class LoginUseCase {
   

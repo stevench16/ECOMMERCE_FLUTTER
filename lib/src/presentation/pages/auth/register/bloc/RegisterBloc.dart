@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
-  AuthUseCases authUseCases;
+  AuthUseCases authUseCases;  
 
   RegisterBloc(this.authUseCases): super(RegisterState()) {
     on<RegisterInitEvent>(_onInitEvent);
@@ -116,7 +116,18 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       );
   }
   Future<void>_onFormReset(RegisterFormReset event, Emitter<RegisterState> emit) async {
-    state.formKey?.currentState?.reset();
+ //   state.formKey?.currentState?.reset();
+//    emit(RegisterState(formKey: state.formKey));
+    emit(state.copywith(
+    response: null,  // Limpia la respuesta para evitar que se dispare otra vez el BlocListener
+    name: BlocFormItem(value: ""),
+    lastname: BlocFormItem(value: ""),
+    email: BlocFormItem(value: ""),
+    phone: BlocFormItem(value: ""),
+    password: BlocFormItem(value: ""),
+    confirmPassword: BlocFormItem(value: ""),
+    formKey: state.formKey, // Mantiene la clave del formulario
+  ));
   }
 
 }

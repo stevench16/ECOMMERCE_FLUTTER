@@ -6,7 +6,6 @@ import 'package:ecommerce_flutter/src/presentation/pages/auth/login/bloc/LoginSt
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rxdart/rxdart.dart';
 
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {

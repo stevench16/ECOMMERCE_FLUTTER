@@ -13,17 +13,18 @@ class RegisterPage extends StatefulWidget {
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
-
 class _RegisterPageState extends State<RegisterPage> {
+
+  final _formKey = GlobalKey<FormState>(); // La clave del formulario
 
   RegisterBloc? _bloc;
 
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   _registerBlocCubit?.dispose();
-    // });
+      // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      //   _bloc?.dispose();
+      // });
   }
 
   @override
@@ -38,19 +39,26 @@ class _RegisterPageState extends State<RegisterPage> {
         child: BlocListener<RegisterBloc, RegisterState>(
           listener: (context, state){
             final responseState = state.response;
-        if (responseState is Error) {
-          Fluttertoast.showToast(
-              msg: responseState.message, toastLength: Toast.LENGTH_LONG);
-        } else if (responseState is Success) {
-          _bloc?.add(RegisterFormReset());
-          Fluttertoast.showToast(
-              msg: 'Registro exitoso', toastLength: Toast.LENGTH_LONG);
-        }
+            if (responseState is Error) {
+              Fluttertoast.showToast(
+                msg: responseState.message, 
+                toastLength: Toast.LENGTH_LONG
+              );
+            }
+            else if (responseState is Success) {
+              _formKey.currentState?.reset(); // Resetea el formulario correctamente
+              _bloc?.add(RegisterFormReset());
+              Fluttertoast.showToast(
+                msg: 'Registro exitoso',
+                toastLength: Toast.LENGTH_LONG
+              );
+            }
           },
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state){
-              return RegisterContent(_bloc, state);
-            }),
+              return RegisterContent(_bloc, state, _formKey);
+            }
+          )
         )
       )
     );

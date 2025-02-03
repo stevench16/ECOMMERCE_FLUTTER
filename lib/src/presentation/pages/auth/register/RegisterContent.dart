@@ -12,8 +12,10 @@ class RegisterContent extends StatelessWidget {
 
   RegisterBloc? bloc;
   RegisterState state;
+  final GlobalKey<FormState> formKey;
 
-  RegisterContent(this.bloc, this.state);
+  //RegisterContent(this.bloc, this.state);
+  RegisterContent(this.bloc, this.state, this.formKey, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {    
@@ -118,10 +120,12 @@ class RegisterContent extends StatelessWidget {
                           } else {
                             Fluttertoast.showToast(
                                 msg: 'El formulario no es valido',
-                                toastLength: Toast.LENGTH_LONG);
+                                toastLength: Toast.LENGTH_LONG
+                              );
                           }
-                        }),
-                  ),
+                        }
+                      ),
+                  )
                 ],
               ),
             ),
@@ -130,15 +134,7 @@ class RegisterContent extends StatelessWidget {
             left: 45,
             top: 15,
           ),
-          Container(
-            alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: 45, top: 135),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back_ios, size: 35, color: Colors.white)),
-          ),
+
         ],
       ),
     );
