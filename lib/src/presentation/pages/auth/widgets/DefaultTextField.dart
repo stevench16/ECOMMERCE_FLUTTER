@@ -6,24 +6,27 @@ String label;
 String? errorText;
 IconData icon;
 Function(String text) onChange;
+String? Function(String?)? validator;
 bool obscureText;
 
   DefaultTextField({
+    Key? key,
     required this.label,
     required this.icon,
     required this.onChange,
     this.errorText,
-    this.obscureText=false
-    
-  });
+    this.validator,
+    this.obscureText=false    
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       obscureText: obscureText,
       onChanged: (text){
         onChange(text);
       },
+      validator: validator,
       decoration: InputDecoration(
         label: Text(
           label,
