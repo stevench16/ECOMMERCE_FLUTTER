@@ -10,8 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterContent extends StatelessWidget {
 
-  RegisterBloc? bloc;
-  RegisterState state;
+  final RegisterBloc? bloc;
+  final RegisterState state;
   final GlobalKey<FormState> formKey;
 
   //RegisterContent(this.bloc, this.state);
@@ -20,7 +20,7 @@ class RegisterContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {    
     return Form(
-      key: state.formKey,
+      key: formKey,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -115,7 +115,7 @@ class RegisterContent extends StatelessWidget {
                         text: 'REGISTRARSE',
                         color:Colors.green,
                         onPressed: () {
-                          if (state.formKey!.currentState!.validate()) {
+                          if (formKey.currentState!.validate()) {
                             bloc?.add(RegisterFormSubmit());
                           } else {
                             Fluttertoast.showToast(
