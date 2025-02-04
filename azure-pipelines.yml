@@ -1,11 +1,25 @@
 trigger:
-  - main  # Detecta cambios en la rama principal (main)
+  - main  # Se ejecuta cuando hay cambios en la rama principal de Azure DevOps
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-latest'  # Agente de ejecución
 
 steps:
-  - checkout: self  # Descarga el repositorio conectado desde GitHub
+  - checkout: none  # No descargamos el código de Azure DevOps directamente
 
-  - script: echo "Sincronización exitosa con GitHub"
-    displayName: 'Validar sincronización'
+  - script: |
+      git config --global user.email "admin_devops@mintic.gov.co"
+      git config --global user.name "admin_devops"
+
+      # Clonar el repo desde GitHub
+      git clone --mirror https://github.com/Luis-lhlm2024/ECOMMERCE_FLUTTER.git repo_temp
+      cd repo_temp
+
+      # Agregar Azure DevOps como remoto
+      git remote add azure https://admin_devops@dev.azure.com/MinisterioTIC/_git/ECOMMERCE_FLUTTER
+      git fetch origin --prune  # Asegura que eliminamos ramas obsoletas
+
+      # Forzar sincronización con el repo de Azure DevOps
+      git push --mirror azure
+
+    displayName: 'Actualizar repositorio de Azure DevOps desde GitHub'
