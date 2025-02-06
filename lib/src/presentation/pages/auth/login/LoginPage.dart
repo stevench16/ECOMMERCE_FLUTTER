@@ -40,8 +40,14 @@ class _LoginPageState extends State<LoginPage> {
           Fluttertoast.showToast(
               msg: 'Login exitoso', toastLength: Toast.LENGTH_LONG);
         }
-      }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-        return LoginContent(_bloc, state);
+      }, 
+      child: BlocBuilder<LoginBloc, LoginState>(
+        builder: (context, state) {
+          final responseState = state.response;
+          if (responseState is Loading){
+            return Center(child: CircularProgressIndicator());
+          }
+          return LoginContent(_bloc, state);
       })),
     ));
   }
