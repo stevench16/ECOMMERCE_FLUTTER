@@ -22,9 +22,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final formKey = GlobalKey<FormState>();
 
   Future<void> _onInitEvent(InitEvent event, Emitter<LoginState> emit) async {
-    AuthResponse? authResponse= await authUseCases.getUSerSession.run();
+    AuthResponse? authResponse = await authUseCases.getUSerSession.run();
     print('USUARIO DE SESION: ${authResponse?.toJson()}');
     emit(state.copywith(formKey: formKey));
+
+    if (authResponse != null) {
+      emit(state.copywith(response: Success(authResponse), formKey: formKey)); //AuthResponse -> user, token
+    }
   }
 
   Future<void> _onLoginSaveUserSession(
