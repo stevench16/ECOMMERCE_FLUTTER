@@ -9,6 +9,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:ecommerce_flutter/src/data/dataSource/local/SharedPref.dart'
+    as _i838;
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/AuthService.dart'
     as _i543;
 import 'package:ecommerce_flutter/src/di/AppModule.dart' as _i987;
@@ -32,6 +34,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final appmodule = _$Appmodule();
     gh.factory<_i543.AuthService>(() => appmodule.authService);
+    gh.factory<_i838.SharePref>(() => appmodule.sharedPref);
     gh.factory<_i148.AuthRepository>(() => appmodule.authRepository);
     gh.factory<_i322.AuthUseCases>(() => appmodule.authUseCases);
     return this;
