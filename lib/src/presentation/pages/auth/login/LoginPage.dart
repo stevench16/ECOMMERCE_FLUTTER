@@ -39,11 +39,9 @@ class _LoginPageState extends State<LoginPage> {
         } else if (responseState is Success) {
           final authResponse =responseState.data as AuthResponse;
           //_bloc?.add(LoginFormReset());
-          _bloc?.add(LoginSaveUserSession(authResponse: authResponse));
-          
-
-          WidgetsBinding.instance.addPersistentFrameCallback((timeStamap){
-             Navigator.pushNamed(context, 'roles');
+          _bloc?.add(LoginSaveUserSession(authResponse: authResponse));      
+          WidgetsBinding.instance.addPostFrameCallback((timeStamap){
+             Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
           });
         }
       }, 

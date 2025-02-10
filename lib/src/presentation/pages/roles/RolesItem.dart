@@ -9,28 +9,34 @@ class RolesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 10, top:15),
-          height: 100,
-          child: FadeInImage(
-            image: NetworkImage(role.image),
-            fit: BoxFit.contain,
-            fadeInDuration: Duration(seconds: 1),
-            placeholder: AssetImage('assets/img/no-image.png'),
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushNamedAndRemoveUntil(context,role.route, (route)=> false);
+      },
+
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 10, top:15),
+            height: 100,
+            child: FadeInImage(
+              image: NetworkImage(role.image),
+              fit: BoxFit.contain,
+              fadeInDuration: Duration(seconds: 1),
+              placeholder: AssetImage('assets/img/no-image.png'),
+            ),
           ),
-        ),
-        Text(
-          role.name,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black,
-            fontWeight: FontWeight.bold
+          Text(
+            role.name,
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.black,
+              fontWeight: FontWeight.bold
+            ),
           ),
-        ),
-        SizedBox(height: 10)
-      ],
+          SizedBox(height: 10)
+        ],
+      ),
     );
   }
 }

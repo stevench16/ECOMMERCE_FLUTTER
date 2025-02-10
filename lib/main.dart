@@ -1,7 +1,9 @@
 import 'package:ecommerce_flutter/injection.dart';
 import 'package:ecommerce_flutter/src/blocProviders.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/home/AdminHomePage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/register/RegisterPage.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/home/ClientHomePage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/roles/RolesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +35,9 @@ class MyApp extends StatelessWidget {
       routes: { 
          'login': (BuildContext context) => const LoginPage(),
          'register': (BuildContext context) => const RegisterPage(),
-         'roles': (BuildContext context) => const RolesPage()
+         'roles': (BuildContext context) => const RolesPage(),
+         'client/home': (BuildContext context) => const ClientHomePage(),
+         'admin/home': (BuildContext context) => const AdminHomePage()
         },
       ),
     );
