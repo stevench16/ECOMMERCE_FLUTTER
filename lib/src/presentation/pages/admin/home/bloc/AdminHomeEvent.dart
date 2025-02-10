@@ -15,3 +15,7 @@ class AdminChangeDrawerPage extends AdminHomeEvent {
   @override
   List<Object?> get props => [pageIndex];
 }
+
+class AdminLogout extends AdminHomeEvent{
+  const AdminLogout();
+}

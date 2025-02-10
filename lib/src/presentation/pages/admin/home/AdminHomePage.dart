@@ -57,6 +57,13 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     },
                   ),
 
+                  ListTile(
+                    title: Text('Cerrar Sesión'),
+                    onTap: (){
+                      _bloc?.add(AdminLogout());
+                      Navigator.pushNamedAndRemoveUntil(context,'login',(route)=> false);
+                    },
+                  ),
                 ],
               ),
             );
