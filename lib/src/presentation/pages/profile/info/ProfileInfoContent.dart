@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+
+class ProfileInfoContent extends StatelessWidget {
+  const ProfileInfoContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _imageBackground(context),
+        Column(
+          children: [
+            _imageProfile(),
+            Spacer(),
+            _cardProfileInfo(context)
+          ],
+        )
+
+      ],
+    );
+  }
+
+  Widget _cardProfileInfo(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.35,
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(255, 255, 255, 0.7),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(35),
+          topRight: Radius.circular(35),
+        )
+      ),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          children: [
+            ListTile(
+              title: Text('Pepito Perez'),
+              subtitle: Text('Nombre de Usuario'),
+              leading: Icon(Icons.person_4),
+            ),
+            ListTile(
+              title: Text('ejemplo@gmail.com'),
+              subtitle: Text('Correo Electronico'),
+              leading: Icon(Icons.email_sharp),
+            ),
+            ListTile(
+              title: Text('+057 3132572430'),
+              subtitle: Text('Telefono'),
+              leading: Icon(Icons.phone),
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              margin: EdgeInsets.only(right: 10, bottom: 10),
+              child: FloatingActionButton(
+                backgroundColor: Colors.black,
+                onPressed: () {},
+                child: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                  ),
+                ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _imageProfile() {
+    return Container(
+      margin: EdgeInsets.only(top: 100),
+      width: 150,
+      child: AspectRatio(
+        aspectRatio: 1/1,
+        child: ClipOval(
+          child: FadeInImage.assetNetwork(
+            placeholder: 'assets/img/user.png', 
+            image: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+            fit: BoxFit.cover,
+            fadeInDuration:  Duration(seconds: 1),
+            ),
+        ),
+      ),
+    );
+  }
+
+  Widget _imageBackground(BuildContext context) {
+    return Image.asset('assets/img/background3.jpg',
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height,
+    fit: BoxFit.cover,
+    color: Color.fromRGBO(0, 0, 0, 0.7),
+    colorBlendMode: BlendMode.darken,
+    );
+  }
+}

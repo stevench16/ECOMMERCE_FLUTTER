@@ -3,6 +3,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/admin/home/bloc/AdminHo
 import 'package:ecommerce_flutter/src/presentation/pages/admin/home/bloc/AdminHomeEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/home/bloc/AdminHomeState.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/list/AdminProductListPage.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/profile/info/ProfileInfoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +19,8 @@ class _AdminHomePageState extends State<AdminHomePage> {
 
   List<Widget> pageList = <Widget>[
     AdminCategoryListState(),
-    AdminProductListPage()
+    AdminProductListPage(),
+    ProfileInfoPage()
   ];
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,15 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     selected: state.pageIndex == 1,
                     onTap: () {
                       _bloc?.add(AdminChangeDrawerPage(pageIndex: 1));
+                      Navigator.pop(context);
+                    },
+                  ),
+
+                  ListTile(
+                    title: Text('Perfil de Usuario'),
+                    selected: state.pageIndex == 2,
+                    onTap: () {
+                      _bloc?.add(AdminChangeDrawerPage(pageIndex: 2));
                       Navigator.pop(context);
                     },
                   ),
