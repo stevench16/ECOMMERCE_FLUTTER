@@ -16,10 +16,12 @@ steps:
       cd repo_temp
 
       # Agregar Azure DevOps como remoto
-      git remote add azure https://admin_devops@dev.azure.com/MinisterioTIC/_git/ECOMMERCE_FLUTTER
+      git remote add azure https://$(AZURE_PAT)@dev.azure.com/MinisterioTIC/_git/ECOMMERCE_FLUTTER
       git fetch origin --prune  # Asegura que eliminamos ramas obsoletas
 
       # Forzar sincronización con el repo de Azure DevOps
       git push --mirror azure
 
     displayName: 'Actualizar repositorio de Azure DevOps desde GitHub'
+    env:
+      AZURE_PAT: $(AZURE_PAT)  # Referencia a la variable secreta en el pipeline
