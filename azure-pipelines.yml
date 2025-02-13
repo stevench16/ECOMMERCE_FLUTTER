@@ -12,12 +12,11 @@ steps:
       git config --global user.name "admin_devops"
 
       # Clonar el repo desde GitHub
-      git clone --mirror https://github.com/Luis-lhlm2024/ECOMMERCE_FLUTTER.git repo_temp
+      git clone --mirror https://github.com/Luis-lhlm2024/App_ecommerce_flutter.git repo_temp
       cd repo_temp
 
       # Agregar Azure DevOps como remoto
       git remote add azure https://admin_devops:$(AZURE_PAT)@dev.azure.com/MinisterioTIC/_git/ECOMMERCE_FLUTTER
-      # git remote add azure https://admin_devops:$(AZURE_PAT)@dev.azure.com/MinisterioTIC/_git/ECOMMERCE_FLUTTER
       git fetch origin --prune  # Asegura que eliminamos ramas obsoletas
 
       # Forzar sincronización con el repo de Azure DevOps
