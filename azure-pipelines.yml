@@ -12,7 +12,7 @@ steps:
       git config --global user.name "admin_devops"
 
       # Clonar el repo desde GitHub
-      git clone --mirror https://github.com/Luis-lhlm2024/ECOMMERCE_FLUTTER.git repo_temp
+      git clone --mirror https://MinisterioTIC@dev.azure.com/MinisterioTIC/App_ecommerce_flutter/_git/App_ecommerce_flutter repo_temp
       cd repo_temp
 
       # Agregar Azure DevOps como remoto
