@@ -5,6 +5,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/profile/update/bloc/Pro
 import 'package:ecommerce_flutter/src/presentation/pages/profile/update/bloc/ProfileUpdateEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/profile/update/bloc/ProfileUpdateState.dart';
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
+import 'package:ecommerce_flutter/src/presentation/utils/SelectOptionImageDialog.dart';
 import 'package:flutter/material.dart';
 
 class ProfileUpdateContent extends StatelessWidget {
@@ -27,7 +28,7 @@ User? user;
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _imageProfile(),
+                _imageProfile(context),
                 // Spacer(),
                 _cardProfileInfo(context)
               ],
@@ -148,10 +149,14 @@ User? user;
     );
   }
 
-  Widget _imageProfile() {
+  Widget _imageProfile(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        bloc?.add(ProfileUpdatePickImage());
+        SelectOptionImageDialog(
+          context, 
+          () { bloc?.add(ProfileUpdatePickImage()); },
+          () { bloc?.add(ProfileUpdateTakePhoto()); },
+          );
       },
       child: Container(
         margin: EdgeInsets.only(top: 100),
