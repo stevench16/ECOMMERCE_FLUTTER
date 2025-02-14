@@ -149,18 +149,28 @@ User? user;
   }
 
   Widget _imageProfile() {
-    return Container(
-      margin: EdgeInsets.only(top: 100),
-      width: 150,
-      child: AspectRatio(
-        aspectRatio: 1/1,
-        child: ClipOval(
-          child: FadeInImage.assetNetwork(
-            placeholder: 'assets/img/user.png', 
-            image: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
-            fit: BoxFit.cover,
-            fadeInDuration:  Duration(seconds: 1),
-            ),
+    return GestureDetector(
+      onTap: () {
+        bloc?.add(ProfileUpdatePickImage());
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 100),
+        width: 150,
+        child: AspectRatio(
+          aspectRatio: 1/1,
+          child: ClipOval(
+            child: state!.image != null 
+            ? Image.file(
+              state!.image!,
+              fit: BoxFit.cover,
+              ) 
+            : FadeInImage.assetNetwork(
+              placeholder: 'assets/img/user.png', 
+              image: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+              fit: BoxFit.cover,
+              fadeInDuration:  Duration(seconds: 1),
+              ),
+          ),
         ),
       ),
     );
