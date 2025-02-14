@@ -1,13 +1,19 @@
 import 'package:ecommerce_flutter/src/domain/models/User.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultIconBack.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTextField.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/profile/update/bloc/ProfileUpdateBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/profile/update/bloc/ProfileUpdateEvent.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/profile/update/bloc/ProfileUpdateState.dart';
+import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
 
 class ProfileUpdateContent extends StatelessWidget {
 
+ProfileUpdateBloc? bloc;
+ProfileUpdateState? state;
 User? user;
   
-  ProfileUpdateContent (this.user);
+  ProfileUpdateContent (this.bloc, this.state, this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +44,7 @@ User? user;
   Widget _cardProfileInfo(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.35,
+      height: MediaQuery.of(context).size.height * 0.40,
       decoration: BoxDecoration(
         color: Color.fromRGBO(255, 255, 255, 0.7),
         borderRadius: BorderRadius.only(
@@ -50,26 +56,43 @@ User? user;
         margin: EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
+            _textUpdateInfo(),
             _textFieldName(),
             _textFieldLastname(),
             _textFieldPhone(),
-            Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.only(right: 10, top: 20),
-              child: FloatingActionButton(
-                backgroundColor: Colors.black,
-                onPressed: () {},
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  ),
-                ),
-            )
+            _fabSubmit()           
           ],
         ),
       ),
     );
   }
+
+  Widget _fabSubmit() {
+    return Container(
+      alignment: Alignment.centerRight,
+      margin: EdgeInsets.only(right: 10, top: 20),
+      child: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () {},
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+          ),
+        ),
+    );
+  }
+
+  Widget _textUpdateInfo() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(top: 17, left: 35, bottom: 10),
+      child: Text('ACTUALIZAR INFORMACION',
+      style: TextStyle(
+        fontSize: 19
+      ),
+    ),
+  );
+}
 
    Widget _textFieldName() {
     return Container(
@@ -77,13 +100,14 @@ User? user;
         child: DefaultTextField(
             label: 'Nombre',
             icon: Icons.person_4,
-            // errorText: snapshot.error?.toString(),
+            color: Colors.black,
+            initialValue: user?.name ?? '',
             onChange: (text) {
-              // bloc?.add(EmailChanged(email: BlocFormItem(value: text)));
+               bloc?.add(ProfileUpdateNameChanged(name: BlocFormItem(value: text)));
             },
-            // validator: (value) {
-            //   return state.email.error;
-            // }
+             validator: (value) {
+              return bloc?.state.name.error;
+             },
           )
     );
   }
@@ -94,13 +118,14 @@ User? user;
         child: DefaultTextField(
             label: 'Apellido',
             icon: Icons.person_outline,
-            // errorText: snapshot.error?.toString(),
+            color: Colors.black,
+            initialValue: user?.lastname ?? '',
             onChange: (text) {
-              // bloc?.add(EmailChanged(email: BlocFormItem(value: text)));
+             bloc?.add(ProfileUpdateLastnameChanged(lastname: BlocFormItem(value: text)));
             },
-            // validator: (value) {
-            //   return state.email.error;
-            // }
+             validator: (value) {
+               return bloc?.state.lastname.error;
+             }
           )
     );
   }
@@ -111,13 +136,14 @@ User? user;
         child: DefaultTextField(
             label: 'Telefono',
             icon: Icons.phone,
-            // errorText: snapshot.error?.toString(),
+            color: Colors.black,
+            initialValue: user?.phone ?? '',
             onChange: (text) {
-              // bloc?.add(EmailChanged(email: BlocFormItem(value: text)));
+               bloc?.add(ProfileUpdatePhoneChanged(phone: BlocFormItem(value: text)));
             },
-            // validator: (value) {
-            //   return state.email.error;
-            // }
+             validator: (value) {
+               return bloc?.state.phone.error;
+             }
           )
     );
   }
