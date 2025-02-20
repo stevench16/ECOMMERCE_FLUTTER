@@ -1,30 +1,29 @@
 trigger:
-  - main  # Se ejecuta cuando hay cambios en la rama main de GitHub
+  - main  # Se ejecuta cuando hay cambios en la rama principal de Azure DevOps
 
 pool:
-  vmImage: 'ubuntu-latest'  # Agente Ubuntu más reciente
+  vmImage: 'ubuntu-latest'  # Agente de ejecución
 
 steps:
-  - checkout: none  # No se clona el repo de Azure DevOps directamente
+  - checkout: none  # No descargamos el código de Azure DevOps directamente
 
   - script: |
       git config --global user.email "admin_devops@mintic.gov.co"
       git config --global user.name "admin_devops"
 
-      # Clonar el repositorio desde GitHub
-      git clone --bare https://github.com/Luis-lhlm2024/ECOMMERCE_FLUTTER.git repo_temp
+      # Clonar el repo desde GitHub
+      git clone --mirror https://github.com/Luis-lhlm2024/ECOMMERCE_FLUTTER.git repo_temp
       cd repo_temp
 
       # Agregar Azure DevOps como remoto
       git remote add azure https://$(AZURE_PAT)@dev.azure.com/MinisterioTIC/_git/App_ecommerce_flutter
-
-      # Traer los últimos cambios de GitHub
+      
+      # Asegura que eliminamos ramas obsoletas
       git fetch origin --prune  
 
-      # Sincronizar todas las ramas con Azure DevOps
-      git push --force --all azure
-      git push --force --tags azure
+      # Forzar sincronización con el repo de Azure DevOps
+      git push --mirror azure
 
-    displayName: 'Sincronizar repositorio de Azure DevOps con GitHub'
+    displayName: 'Actualizar repositorio de Azure DevOps desde GitHub'
     env:
-      AZURE_PAT: $(AZURE_PAT)  # Token de autenticación en Azure DevOps
+      AZURE_PAT: $(AZURE_PAT)  # Pasa la variable correctamente
