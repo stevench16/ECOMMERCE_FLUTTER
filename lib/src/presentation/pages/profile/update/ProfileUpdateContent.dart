@@ -175,8 +175,8 @@ User? user;
               fit: BoxFit.cover,
               ) 
             : FadeInImage.assetNetwork(
-              placeholder: 'assets/img/user.png', 
-              image: 'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
+              placeholder: 'assets/img/user_image.png', 
+              image: user!.image!,
               fit: BoxFit.cover,
               fadeInDuration:  Duration(seconds: 1),
               ),
