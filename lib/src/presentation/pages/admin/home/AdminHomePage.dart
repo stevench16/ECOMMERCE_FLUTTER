@@ -1,3 +1,4 @@
+import 'package:ecommerce_flutter/main.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/list/AdminCategoryListPage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/home/bloc/AdminHomeBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/home/bloc/AdminHomeEvent.dart';
@@ -72,7 +73,11 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     title: Text('Cerrar Sesión'),
                     onTap: (){
                       _bloc?.add(AdminLogout());
-                      Navigator.pushNamedAndRemoveUntil(context,'login',(route)=> false);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyApp()),
+                        (route)=> false
+                      );
                     },
                   ),
                 ],
