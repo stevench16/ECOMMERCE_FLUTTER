@@ -1,13 +1,24 @@
+import 'package:ecommerce_flutter/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateEvent.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateState.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultIconBack.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTextfield.dart';
+import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
+import 'package:ecommerce_flutter/src/presentation/utils/SelectOptionImageDialog.dart';
 import 'package:flutter/material.dart';
 
 class AdminCategoryCreateContent extends StatelessWidget {
-  const AdminCategoryCreateContent({super.key});
+
+  AdminCategoryCreateBloc? bloc;
+  AdminCategoryCreateState state;
+
+
+  AdminCategoryCreateContent(this.bloc,this.state);
 
   @override
   Widget build(BuildContext context) {
     return Form(
+        key: state.formKey,      
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -18,7 +29,7 @@ class AdminCategoryCreateContent extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _imageCategory(),
+                    _imageCategory(context),
                     _cardCategoryForm(context)
                   ],
                 ),
@@ -40,7 +51,7 @@ class AdminCategoryCreateContent extends StatelessWidget {
   Widget _cardCategoryForm(BuildContext context){
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height*0.38,
+      height: MediaQuery.of(context).size.height*0.44,
       decoration: BoxDecoration(
         color: Color.fromRGBO(255,255,255,0.7),
         borderRadius: BorderRadius.only(
@@ -68,7 +79,11 @@ class AdminCategoryCreateContent extends StatelessWidget {
       alignment: Alignment.centerRight,
       margin: EdgeInsets.only(top: 30),
       child: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          if (state.formKey!.currentState!.validate()){
+            bloc?.add(FormSubmit());
+          }
+        },
         backgroundColor: Colors.black,
         child: Icon(
           Icons.check,
@@ -95,7 +110,12 @@ class AdminCategoryCreateContent extends StatelessWidget {
     return DefaultTextField(
       label: 'Nombre de la Categoría', 
       icon: Icons.category, 
-      onChange: (text){},
+      onChange: (text){
+        bloc?.add(AdminCategoryCreateNameChanged(name:BlocFormItem(value: text)));
+      },
+      validator: (value){
+        return state.name.error;
+      },
       color: Colors.black,
     );
   }
@@ -104,19 +124,37 @@ class AdminCategoryCreateContent extends StatelessWidget {
     return DefaultTextField(
       label: 'Descripción', 
       icon: Icons.list, 
-      onChange: (text){},
+      onChange: (text){
+        bloc?.add(AdminCategoryCreateDescriptionChanged(description:BlocFormItem(value: text)));
+      },
+      validator: (value){
+        return state.description.error;
+      },
       color: Colors.black,
     );
   }
 
-  Widget _imageCategory(){
-    return Container(
+  Widget _imageCategory(BuildContext context){
+    return GestureDetector(
+      onTap: (){
+        SelectOptionImageDialog(
+          context, 
+          () {bloc?.add(PickImage());}, 
+          (){bloc?.add(TakePhoto());}
+        );
+      },
+      child :Container(
       width: 150,
       margin: EdgeInsets.only(top: 100),
       child: AspectRatio(
         aspectRatio:1/1,
         child: ClipOval(
-          child: FadeInImage.assetNetwork(
+          child: state.file!=null
+           ? Image.file(
+              state.file!,
+              fit: BoxFit.cover
+             )
+             :FadeInImage.assetNetwork(
             placeholder: 'assets/img/user_image.png',
              image: 'https://cdn-icons-png.freepik.com/512/3843/3843517.png',
              fit: BoxFit.cover,
@@ -124,6 +162,7 @@ class AdminCategoryCreateContent extends StatelessWidget {
           ),
         ),
       ),
+     ),
     );
   }
 
