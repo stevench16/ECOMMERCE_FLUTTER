@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCases.dart';
+import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/create/bloc/AdminCategoryCreateState.dart';
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
@@ -8,7 +10,10 @@ import 'package:image_picker/image_picker.dart';
 
 class AdminCategoryCreateBloc
     extends Bloc<AdminCategoryCreateEvent, AdminCategoryCreateState> {
-  AdminCategoryCreateBloc() : super(AdminCategoryCreateState()) {
+  CategoriesUseCases categoriesUseCases;
+
+  AdminCategoryCreateBloc(this.categoriesUseCases)
+      : super(AdminCategoryCreateState()) {
     on<AdminCategoryCreateInitEvent>(_onInitEvent);
     on<AdminCategoryCreateNameChanged>(_onAdminCategoryCreateNameChanged);
     on<AdminCategoryCreateDescriptionChanged>(
@@ -21,8 +26,8 @@ class AdminCategoryCreateBloc
 
   final formKey = GlobalKey<FormState>();
 
-  Future<void> _onInitEvent(
-      AdminCategoryCreateInitEvent event, Emitter<AdminCategoryCreateState> emit) async {
+  Future<void> _onInitEvent(AdminCategoryCreateInitEvent event,
+      Emitter<AdminCategoryCreateState> emit) async {
     emit(state.copyWith(formKey: formKey));
   }
 
@@ -51,9 +56,19 @@ class AdminCategoryCreateBloc
   }
 
   Future<void> _onFormSubmit(
-      FormSubmit event, Emitter<AdminCategoryCreateState> emit) async {}
+      FormSubmit event, Emitter<AdminCategoryCreateState> emit) async {
+    emit(state.copyWith(response: Loading(), formKey: formKey));
+    Resource response =
+        await categoriesUseCases.create.run(state.toCategory(), state.file!);
+
+    emit(state.copyWith(response: response, formKey: formKey));
+  }
+
   Future<void> _onResetForm(
-      ResetForm event, Emitter<AdminCategoryCreateState> emit) async {}
+      ResetForm event, Emitter<AdminCategoryCreateState> emit) async {
+    emit(state.resetForm());
+    //state.formKey?.currentState?.reset();
+  }
 
   Future<void> _onPickImage(
       PickImage event, Emitter<AdminCategoryCreateState> emit) async {

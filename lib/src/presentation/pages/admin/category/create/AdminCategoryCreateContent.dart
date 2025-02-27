@@ -154,11 +154,9 @@ class AdminCategoryCreateContent extends StatelessWidget {
               state.file!,
               fit: BoxFit.cover
              )
-             :FadeInImage.assetNetwork(
-            placeholder: 'assets/img/user_image.png',
-             image: 'https://cdn-icons-png.freepik.com/512/3843/3843517.png',
-             fit: BoxFit.cover,
-             fadeInDuration: Duration(seconds: 1),
+             :Image.asset(
+              'assets/img/no-image.png',
+              fit: BoxFit.cover,
           ),
         ),
       ),
@@ -168,7 +166,7 @@ class AdminCategoryCreateContent extends StatelessWidget {
 
   Widget _imageBackground(BuildContext context) {
     return Image.asset(
-      'assets/img/background1.jpg',
+      'assets/img/background4.jpg',
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       fit: BoxFit.cover,

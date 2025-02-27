@@ -12,7 +12,7 @@ import 'package:path/path.dart';
 
 class UsersService {
 
-  SharePref sharePref;
+  SharedPref sharePref;
 
   UsersService(this.sharePref);
   
