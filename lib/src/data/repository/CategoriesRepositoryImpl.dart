@@ -8,10 +8,17 @@ import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 class CategoriesRepositoryImpl implements CategoriesRepository {
 
   CategoriesService categoriesService;
+
   CategoriesRepositoryImpl (this.categoriesService);
+  
   @override
   Future<Resource<Category>> create(Category category, File file) {
     return categoriesService.create(category, file);
+  }
+  
+  @override
+  Future<Resource<List<Category>>> getCategories() {
+    return categoriesService.getCategories();
   }
 
 }

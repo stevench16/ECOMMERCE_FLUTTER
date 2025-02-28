@@ -5,7 +5,6 @@ import 'package:ecommerce_flutter/src/data/repository/AuthRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/AuthService.dart';
 import 'package:ecommerce_flutter/src/data/repository/CategoriesRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/data/repository/UsersRepositoryImpl.dart';
-import 'package:ecommerce_flutter/src/domain/models/User.dart';
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart';
 import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart';
 import 'package:ecommerce_flutter/src/domain/repository/UsersRepository.dart';
@@ -17,6 +16,7 @@ import 'package:ecommerce_flutter/src/domain/useCases/auth/RegisterUseCase.dart'
 import 'package:ecommerce_flutter/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/categories/CreateCategoryUseCase.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/categories/GetCategoriesUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/users/UpdateUserUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/users/UsersUseCases.dart';
 import 'package:injectable/injectable.dart';
@@ -61,8 +61,10 @@ abstract class AppModule {
 
 
   @injectable
-
   CategoriesUseCases get categoriesUseCases => CategoriesUseCases(
-    create: CreateCategoryUseCase(categoriesRepository));
+    create: CreateCategoryUseCase(categoriesRepository),
+    getCategories:  GetCategoriesUseCase(categoriesRepository)
+    
+  );
 
 }
