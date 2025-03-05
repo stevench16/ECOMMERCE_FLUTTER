@@ -1,7 +1,7 @@
 import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart';
 
-class GetCategoriesUseCase {
+class GetCategoriesUseCases {
   CategoriesRepository categoriesRepository;
-  GetCategoriesUseCase(this.categoriesRepository);
+  GetCategoriesUseCases(this.categoriesRepository);
   run() => categoriesRepository.getCategories();
 }

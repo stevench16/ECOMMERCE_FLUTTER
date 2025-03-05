@@ -1,5 +1,6 @@
 import 'package:ecommerce_flutter/src/domain/models/Category.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/category/list/AdminCategoryListItem.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/list/bloc/AdminCategoryListBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/list/bloc/AdminCategoryListEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/list/bloc/AdminCategoryListState.dart';
@@ -20,13 +21,14 @@ class _AdminCategoryListPageState extends State<AdminCategoryListPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _bloc?.add(GetCategories());
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _bloc=BlocProvider.of<AdminCategoryListBloc>(context);
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -54,7 +56,7 @@ class _AdminCategoryListPageState extends State<AdminCategoryListPage> {
               return ListView.builder(
                 itemCount: categories.length,
                 itemBuilder: (context,index){
-                  return Text(categories [index].name);
+                  return AdminCategoryListItem(categories [index]);
                 }              
               );
             }

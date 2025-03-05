@@ -66,8 +66,7 @@ class CategoriesService {
       Map<String, String> headers = {
         "Content-Type": "application/json",
         "Authorization": token
-      };
-    
+      };    
       final response = await http.get(url, headers: headers);
       final data = json.decode(response.body);
       if(response.statusCode == 200 || response.statusCode == 201){

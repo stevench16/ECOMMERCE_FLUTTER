@@ -63,7 +63,7 @@ abstract class AppModule {
   @injectable
   CategoriesUseCases get categoriesUseCases => CategoriesUseCases(
     create: CreateCategoryUseCase(categoriesRepository),
-    getCategories:  GetCategoriesUseCase(categoriesRepository)
+    getCategories:  GetCategoriesUseCases(categoriesRepository)
     
   );
 

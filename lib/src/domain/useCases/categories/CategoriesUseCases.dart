@@ -3,7 +3,7 @@ import 'package:ecommerce_flutter/src/domain/useCases/categories/GetCategoriesUs
 
 class CategoriesUseCases{
   CreateCategoryUseCase create;
-  GetCategoriesUseCase getCategories;
+  GetCategoriesUseCases getCategories;
   CategoriesUseCases({
     required this.create,
     required this.getCategories,
