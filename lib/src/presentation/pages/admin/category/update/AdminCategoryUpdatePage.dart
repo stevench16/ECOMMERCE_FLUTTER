@@ -1,5 +1,7 @@
 import 'package:ecommerce_flutter/src/domain/models/Category.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/category/list/bloc/AdminCategoryListBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/category/list/bloc/AdminCategoryListEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/update/AdminCategoryUpdateContent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/update/bloc/AdminCategoryUpdateBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/category/update/bloc/AdminCategoryUpdateEvent.dart';
@@ -30,6 +32,12 @@ class _AdminCategoryUpdatePageState extends State<AdminCategoryUpdatePage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _bloc?.add(ResetForm());
+  }
+
+  @override
   Widget build(BuildContext context) {
     _bloc = BlocProvider.of<AdminCategoryUpdateBloc>(context);
     category = ModalRoute.of(context)?.settings.arguments as Category;
@@ -38,8 +46,9 @@ class _AdminCategoryUpdatePageState extends State<AdminCategoryUpdatePage> {
           listener: (context, state) {
         final responseState = state.response;
         if (responseState is Success) {
+          context.read<AdminCategoryListBloc>().add(GetCategories());
           Fluttertoast.showToast(
-              msg: 'La Categoría se creó correctamente.',
+              msg: '¡Categoría Actualida!.',
               toastLength: Toast.LENGTH_LONG);
         } else if (responseState is Error) {
           Fluttertoast.showToast(

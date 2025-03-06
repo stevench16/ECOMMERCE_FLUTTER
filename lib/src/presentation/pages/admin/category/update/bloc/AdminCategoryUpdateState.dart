@@ -30,6 +30,12 @@ class AdminCategoryUpdateState extends Equatable {
         name: name.value,
         description: description.value,
       );
+  
+  AdminCategoryUpdateState resetForm() {
+    return AdminCategoryUpdateState(
+      file: null
+    );
+  }
  
   AdminCategoryUpdateState copyWith({
       int? id,

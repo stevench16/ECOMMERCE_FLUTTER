@@ -43,3 +43,9 @@ class PickImage extends AdminCategoryUpdateEvent{
 class TakePhoto extends AdminCategoryUpdateEvent{
   const TakePhoto ();
 }
+
+class ResetForm extends AdminCategoryUpdateEvent{
+  const ResetForm();
+  @override
+  List<Object?> get props =>[];
+}
