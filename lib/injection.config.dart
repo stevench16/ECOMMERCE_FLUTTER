@@ -13,6 +13,8 @@ import 'package:ecommerce_flutter/src/data/dataSource/local/SharedPref.dart'
     as _i838;
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/AuthService.dart'
     as _i543;
+import 'package:ecommerce_flutter/src/data/dataSource/remote/services/CategoriesService.dart'
+    as _i485;
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/UsersService.dart'
     as _i226;
 import 'package:ecommerce_flutter/src/data/repository/UsersRepositoryImpl.dart'
@@ -20,8 +22,12 @@ import 'package:ecommerce_flutter/src/data/repository/UsersRepositoryImpl.dart'
 import 'package:ecommerce_flutter/src/di/AppModule.dart' as _i987;
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart'
     as _i148;
+import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart'
+    as _i179;
 import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart'
     as _i322;
+import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCases.dart'
+    as _i578;
 import 'package:ecommerce_flutter/src/domain/useCases/users/UsersUseCases.dart'
     as _i525;
 import 'package:get_it/get_it.dart' as _i174;
@@ -39,13 +45,17 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final appModule = _$AppModule();
-    gh.factory<_i838.SharePref>(() => appModule.sharedPref);
+    gh.factory<_i838.SharedPref>(() => appModule.sharedPref);
     gh.factory<_i543.AuthService>(() => appModule.authService);
     gh.factory<_i226.UsersService>(() => appModule.usersService);
+    gh.factory<_i485.CategoriesService>(() => appModule.categoriesService);
     gh.factory<_i148.AuthRepository>(() => appModule.authRepository);
     gh.factory<_i395.UsersRepositoryImpl>(() => appModule.usersRepository);
+    gh.factory<_i179.CategoriesRepository>(
+        () => appModule.categoriesRepository);
     gh.factory<_i322.AuthUseCases>(() => appModule.authUseCases);
     gh.factory<_i525.UsersUseCases>(() => appModule.usersUseCases);
+    gh.factory<_i578.CategoriesUseCases>(() => appModule.categoriesUseCases);
     return this;
   }
 }

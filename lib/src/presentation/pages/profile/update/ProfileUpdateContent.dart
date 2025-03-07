@@ -37,9 +37,14 @@ User? user;
               ),
             ),
           ),
-          DefaultIconBack(
-            left: 15, top: 50
-            )
+          //efaultIconBack(left: 15, top: 50),
+          Positioned(
+              left: -33,
+              top: -70,
+              child: DefaultIconBack(
+                left: 0,top: 0
+              ),
+            ),
         ],
       ),
     );

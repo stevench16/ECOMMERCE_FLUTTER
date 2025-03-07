@@ -8,7 +8,7 @@ import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 class AuthRepositoryImpl implements AuthRepository {
   AuthService authService;
 
-  SharePref sharedPref;
+  SharedPref sharedPref;
 
   AuthRepositoryImpl(this.authService, this.sharedPref);
 
