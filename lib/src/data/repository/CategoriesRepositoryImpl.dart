@@ -28,4 +28,9 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
       return categoriesService.updateImage(id, category, file);
     }
   }
+  
+  @override
+  Future<Resource<bool>> delete(int id) {
+    return categoriesService.delete(id);
+  }
 }

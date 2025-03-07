@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:ecommerce_flutter/src/domain/models/Category.dart';
 import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart';
 
-class UpdateCategoryCase {
+class UpdateCategoryUseCase {
   CategoriesRepository categoriesRepository;
-  UpdateCategoryCase(this.categoriesRepository);
+  UpdateCategoryUseCase(this.categoriesRepository);
   run(int id, Category category , File? file) => categoriesRepository.update(id, category, file);
 
 
