@@ -1,18 +1,19 @@
 import 'dart:io';
-import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCases.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/Products/ProductsUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/bloc/AdminProductCreateEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/bloc/AdminProductCreateState.dart';
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/annotations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AdminProductCreateBloc
-    extends Bloc<AdminProductCreateEvent, AdminProductCreateState> {
-  CategoriesUseCases categoriesUseCases;
+class AdminProductCreateBloc extends Bloc<AdminProductCreateEvent, AdminProductCreateState> {
+  
+  ProductsUseCases productsUseCases;
 
-  AdminProductCreateBloc(this.categoriesUseCases): super(AdminProductCreateState()) {
+  AdminProductCreateBloc(this.productsUseCases): super(AdminProductCreateState()) {
     on<AdminProductCreateInitEvent>(_onInitEvent);
     on<AdminProductCreateNameChanged>(_onAdminProductCreateNameChanged);
     on<AdminProductCreatePriceChanged>(_onAdminProductCreatePriceChanged);
@@ -25,9 +26,13 @@ class AdminProductCreateBloc
 
   final formKey = GlobalKey<FormState>();
 
-  Future<void> _onInitEvent(AdminProductCreateInitEvent event,
-      Emitter<AdminProductCreateState> emit) async {
-    emit(state.copyWith(formKey: formKey));
+  Future<void> _onInitEvent(AdminProductCreateInitEvent event, Emitter<AdminProductCreateState> emit) async {
+    emit(
+      state.copyWith(
+        idCategory: event.category?.id,
+        formKey: formKey
+      )
+    );
   }
 
   Future<void> _onAdminProductCreateNameChanged(
@@ -66,10 +71,30 @@ class AdminProductCreateBloc
 
   Future<void> _onFormSubmit(
       FormSubmit event, Emitter<AdminProductCreateState> emit) async {
-    emit(state.copyWith(response: Loading(), formKey: formKey));
+    emit(
+      state.copyWith(
+        response: Loading(), 
+        formKey: formKey
+      )
+    );    
     
-        // Resource response = await categoriesUseCases.create.run(state.toCategory(), state.file!);
-        // emit(state.copyWith(response: response, formKey: formKey));
+    if(state.file1 != null && state.file2 != null){
+      List<File> files= [state.file1!, state.file2!];
+      Resource response = await productsUseCases.create.run(state.toProduct(), files);
+        emit(
+          state.copyWith(
+            response: response, 
+            formKey: formKey
+          )
+        );
+    } else {
+      emit(
+          state.copyWith(
+            response: Error('Selecciona las dos imagenes'), 
+            formKey: formKey
+          )
+        );
+    }
   }
 
   Future<void> _onResetForm(
@@ -123,4 +148,8 @@ class AdminProductCreateBloc
     }
     }
   }
+}
+
+extension on Category? {
+  get id => null;
 }

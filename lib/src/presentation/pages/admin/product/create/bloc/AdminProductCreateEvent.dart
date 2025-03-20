@@ -1,5 +1,7 @@
+import 'package:ecommerce_flutter/src/domain/models/Category.dart';
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:equatable/equatable.dart';
+
 
 abstract class AdminProductCreateEvent extends Equatable{
   const AdminProductCreateEvent();
@@ -9,9 +11,10 @@ abstract class AdminProductCreateEvent extends Equatable{
 }
 
 class AdminProductCreateInitEvent extends AdminProductCreateEvent{
-  const AdminProductCreateInitEvent();
+  final Category? category;
+  const AdminProductCreateInitEvent({ required this.category  });
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [category];
 }
 
 class AdminProductCreateNameChanged extends AdminProductCreateEvent{

@@ -1,4 +1,5 @@
 import 'package:ecommerce_flutter/injection.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/Products/ProductsUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/users/UsersUseCases.dart';
@@ -31,5 +32,5 @@ List<BlocProvider> blocProviders = [
   BlocProvider<AdminCategoryCreateBloc>(create:(context)=> AdminCategoryCreateBloc(locator<CategoriesUseCases>())..add(AdminCategoryCreateInitEvent())),
   BlocProvider<AdminCategoryListBloc>(create:(context)=> AdminCategoryListBloc(locator<CategoriesUseCases>())),
   BlocProvider<AdminCategoryUpdateBloc>(create:(context)=> AdminCategoryUpdateBloc(locator<CategoriesUseCases>())),
-  BlocProvider<AdminProductCreateBloc>(create:(context)=> AdminProductCreateBloc(locator<CategoriesUseCases>())..add(AdminProductCreateInitEvent())),
+  BlocProvider<AdminProductCreateBloc>(create:(context)=> AdminProductCreateBloc(locator<ProductsUseCases>())),
 ];

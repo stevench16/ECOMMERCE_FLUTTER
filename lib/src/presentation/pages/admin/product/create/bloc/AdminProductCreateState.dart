@@ -1,12 +1,14 @@
 import 'dart:io';
 
-import 'package:ecommerce_flutter/src/domain/models/Category.dart';
+import 'package:ecommerce_flutter/src/domain/models/Product.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class AdminProductCreateState extends Equatable {
+
+  final int idCategory;
   final BlocFormItem name;
   final BlocFormItem description;
   final BlocFormItem price;
@@ -15,19 +17,26 @@ class AdminProductCreateState extends Equatable {
   final File? file2;
   final Resource? response;
 
-  const AdminProductCreateState(
-      {this.name = const BlocFormItem(error: 'Ingrese el nombre de la categoría.'),
+  AdminProductCreateState({
+      this.name = const BlocFormItem(error: 'Ingrese el nombre de la categoría.'),
       this.description = const BlocFormItem(error: 'Ingrese la descripción de la categoría.'),
       this.price = const BlocFormItem(error: 'Ingrese el precio'),
+      this.idCategory = 0,
       this.formKey,
       this.response,
       this.file1,
       this.file2
-      });
+  });
 
-  toCategory() => Category(
+   /// Getter to return a list of selected images
+  List<File> get files => [if (file1 != null) file1!, if (file2 != null) file2!];
+
+  toProduct() => Product(
+        id: null,
         name: name.value,
         description: description.value,
+        price: double.parse(price.value),
+        idCategory: idCategory, 
       );
 
   AdminProductCreateState resetForm() {
@@ -38,8 +47,9 @@ class AdminProductCreateState extends Equatable {
     );
   }
 
-  AdminProductCreateState copyWith(
-      {BlocFormItem? name,
+  AdminProductCreateState copyWith({
+      int? idCategory,
+      BlocFormItem? name,
       BlocFormItem? description,
       BlocFormItem? price,
       GlobalKey<FormState>? formKey,
@@ -47,15 +57,18 @@ class AdminProductCreateState extends Equatable {
       File? file2,
       Resource? response}) {
     return AdminProductCreateState(
+        idCategory: idCategory ?? this.idCategory,
         name: name ?? this.name,
         description: description ?? this.description,
         file1: file1 ?? this.file1,
         file2: file2 ?? this.file2,
         price: price ?? this.price,
         formKey: formKey,
-        response: response);
+        response: response
+      );
   }
 
   @override
-  List<Object?> get props => [name, description, price, file1, file2, response];
+  List<Object?> get props => [idCategory, name, description, price, file1, file2, response];
+
 }

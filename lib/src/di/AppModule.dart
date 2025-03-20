@@ -1,13 +1,18 @@
 import 'package:ecommerce_flutter/src/data/dataSource/local/SharedPref.dart';
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/CategoriesService.dart';
+import 'package:ecommerce_flutter/src/data/dataSource/remote/services/ProductService.dart';
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/UsersService.dart';
 import 'package:ecommerce_flutter/src/data/repository/AuthRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/AuthService.dart';
 import 'package:ecommerce_flutter/src/data/repository/CategoriesRepositoryImpl.dart';
+import 'package:ecommerce_flutter/src/data/repository/ProductsRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/data/repository/UsersRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart';
 import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart';
+import 'package:ecommerce_flutter/src/domain/repository/ProductsRepository.dart';
 import 'package:ecommerce_flutter/src/domain/repository/UsersRepository.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/Products/CreateProductUseCase.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/Products/ProductsUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/GetUserSessionUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/LoginUseCase.dart';
@@ -39,6 +44,9 @@ abstract class AppModule {
   CategoriesService get categoriesService => CategoriesService(sharedPref);
 
   @injectable
+  ProductsService get productsService => ProductsService(sharedPref);
+
+  @injectable
   AuthRepository get authRepository => AuthRepositoryImpl(authService, sharedPref);
 
   @injectable
@@ -46,6 +54,9 @@ abstract class AppModule {
   
   @injectable
   CategoriesRepository get categoriesRepository => CategoriesRepositoryImpl(categoriesService);
+
+  @injectable
+  ProductsRepositoryImpl get productsRepository => ProductsRepositoryImpl(productsService);
 
   @injectable
   AuthUseCases get authUseCases => AuthUseCases(
@@ -69,6 +80,11 @@ abstract class AppModule {
     update: UpdateCategoryUseCase(categoriesRepository),
     delete: DeleteCategoryUseCase(categoriesRepository)
     
+  );
+
+  @injectable
+  ProductsUseCases get productsUseCases => ProductsUseCases (
+    create: CreateProductUseCase(productsRepository)   
   );
 
 }

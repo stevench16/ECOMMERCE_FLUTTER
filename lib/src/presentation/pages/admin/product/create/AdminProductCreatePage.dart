@@ -1,3 +1,4 @@
+import 'package:ecommerce_flutter/src/domain/models/Category.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/AdminProductCreateContent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/bloc/AdminProductCreateBloc.dart';
@@ -19,10 +20,28 @@ class AdminProductCreatePage extends StatefulWidget {
 class _AdminProductCreatePageState extends State<AdminProductCreatePage> {
   
   AdminProductCreateBloc? _bloc;
+  Category? category;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+      _bloc?.add(AdminProductCreateInitEvent(category: category));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     _bloc = BlocProvider.of<AdminProductCreateBloc>(context);
+
+    //category = ModalRoute.of(context)?.settings.arguments as Category;
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is Category) {
+      category = args;
+    } else {
+      category = null; // O un valor por defecto
+    }
+
     return Scaffold(
       body: BlocListener<AdminProductCreateBloc, AdminProductCreateState>(
           listener: (context, state) {
@@ -31,7 +50,7 @@ class _AdminProductCreatePageState extends State<AdminProductCreatePage> {
           // context.read<AdminCategoryListBloc>().add(GetCategories());
           _bloc?.add(ResetForm());
           Fluttertoast.showToast(
-              msg: 'La Categoría se creó correctamente.',
+              msg: 'El Producto se creó correctamente.',
               toastLength: Toast.LENGTH_LONG);
         } else if (responseState is Error) {
           Fluttertoast.showToast(
