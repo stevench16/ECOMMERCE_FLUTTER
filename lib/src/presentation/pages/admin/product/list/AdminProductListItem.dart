@@ -45,7 +45,7 @@ class AdminProductListItem extends StatelessWidget {
           direction: Axis.horizontal,
           children: [
             IconButton(onPressed: () {
-              // Navigator.pushNamed(context, 'admin/category/update', arguments: category);
+              Navigator.pushNamed(context, 'admin/product/update', arguments: product);
             }, icon: Icon(Icons.edit)),
             IconButton(onPressed: () {
               // bloc?.add(DeleteCategory(id: category!.id!));
