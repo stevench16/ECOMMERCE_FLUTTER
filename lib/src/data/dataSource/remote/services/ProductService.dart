@@ -13,23 +13,17 @@ import 'package:path/path.dart';
 
 class ProductsService {
 
-  SharedPref sharedPref;
+  Future<String> token;
 
-  ProductsService(this.sharedPref);
+  ProductsService(this.token);
 
   Future<Resource<Product>> create(Product product, List<File> files) async {
     try {      
       // http://172.27.44.141:3000/categories
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/products');
-      String token ="";
-      final userSession = await sharedPref.read('user');
-      if (userSession != null) {
-        AuthResponse authResponse = AuthResponse.fromJson(userSession);
-        token = authResponse.token;
-      }
+      
       final request = http.MultipartRequest('POST', url);
-      request.headers['Authorization'] = token;
-
+      request.headers['Authorization'] = await token;
       files.forEach ((file) async {
         request.files.add(http.MultipartFile(
         'files[]',
@@ -65,15 +59,9 @@ class ProductsService {
     try {
       // http://172.27.44.141:3000/products
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/products/category/$idCategory');
-      String token ="";
-      final userSession = await sharedPref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       Map<String, String> headers = {
         "Content-Type": "application/json",
-        "Authorization": token
+        "Authorization": await token
       };    
       final response = await http.get(url, headers: headers);
       final data = json.decode(response.body);

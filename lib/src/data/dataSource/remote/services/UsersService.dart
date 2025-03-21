@@ -12,9 +12,9 @@ import 'package:path/path.dart';
 
 class UsersService {
 
-  SharedPref sharePref;
+ Future<String> token;
 
-  UsersService(this.sharePref);
+  UsersService(this.token);
   
 
   Future<Resource<User>> update(int id, User user) async{
@@ -22,15 +22,9 @@ class UsersService {
     try {
       // http://172.27.44.141:3000/auth/login
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/users/$id');
-      String token ="";
-      final userSession = await sharePref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       Map<String, String> headers = {
         "Content-Type": "application/json",
-        "Authorization": token
+        "Authorization": await token
       };
       String body = json.encode({
         'name' : user.name,
@@ -58,14 +52,8 @@ class UsersService {
       print('metodo actualizar con imagen');
       // http://172.27.44.141:3000/auth/login
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/users/upload/$id');
-      String token ="";
-      final userSession = await sharePref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       final request = http.MultipartRequest('POST', url);
-      request.headers['Authorization'] = token;
+      request.headers['Authorization'] = await token;
       request.files.add(http.MultipartFile(
         'file',
         http.ByteStream(file.openRead().cast()),

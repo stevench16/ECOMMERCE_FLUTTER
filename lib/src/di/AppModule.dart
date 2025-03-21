@@ -7,6 +7,7 @@ import 'package:ecommerce_flutter/src/data/dataSource/remote/services/AuthServic
 import 'package:ecommerce_flutter/src/data/repository/CategoriesRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/data/repository/ProductsRepositoryImpl.dart';
 import 'package:ecommerce_flutter/src/data/repository/UsersRepositoryImpl.dart';
+import 'package:ecommerce_flutter/src/domain/models/AuthResponse.dart';
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart';
 import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart';
 import 'package:ecommerce_flutter/src/domain/repository/ProductsRepository.dart';
@@ -36,16 +37,27 @@ abstract class AppModule {
   SharedPref get sharedPref => SharedPref();
 
   @injectable
+  Future<String> get token async {
+    String token ="";
+      final userSession = await sharedPref.read('user');
+      if (userSession != null) {
+        AuthResponse authResponse = AuthResponse.fromJson(userSession);
+        token = authResponse.token;
+      }
+      return token;
+  }
+
+  @injectable
   AuthService get authService => AuthService();
 
   @injectable
-  UsersService get usersService => UsersService(sharedPref);
+  UsersService get usersService => UsersService(token);
 
   @injectable
-  CategoriesService get categoriesService => CategoriesService(sharedPref);
+  CategoriesService get categoriesService => CategoriesService(token);
 
   @injectable
-  ProductsService get productsService => ProductsService(sharedPref);
+  ProductsService get productsService => ProductsService(token);
 
   @injectable
   AuthRepository get authRepository => AuthRepositoryImpl(authService, sharedPref);

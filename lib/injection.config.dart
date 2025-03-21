@@ -52,6 +52,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final appModule = _$AppModule();
     gh.factory<_i838.SharedPref>(() => appModule.sharedPref);
+    gh.factoryAsync<String>(() => appModule.token);
     gh.factory<_i543.AuthService>(() => appModule.authService);
     gh.factory<_i226.UsersService>(() => appModule.usersService);
     gh.factory<_i485.CategoriesService>(() => appModule.categoriesService);
