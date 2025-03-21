@@ -1,4 +1,6 @@
-abstract class Resource<T> {}
+abstract class Resource<T> {
+  get data => null;
+}
 
 class Initial extends Resource {}
 class Loading extends Resource {}

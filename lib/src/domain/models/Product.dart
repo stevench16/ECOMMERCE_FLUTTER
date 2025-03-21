@@ -23,6 +23,15 @@ class Product {
         required this.price,
     });
 
+    static List<Product>fromJsonList(List<dynamic>jsonList){
+        List <Product> toList=[];
+        jsonList.forEach((item) {
+          Product product =Product.fromJson(item);
+          toList.add(product);
+        });
+        return toList;
+    }
+
     factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
         name: json["name"] ?? '',
@@ -36,12 +45,11 @@ class Product {
           : 0,
         //idCategory: json["id_category"] is String ? int.parse(json["id_category"]): json["id_category"],
         
-        price: json["price"] != null
-          ? (json["price"] is String
-              ? double.tryParse(json["price"]) ?? 0.0
-              : json["price"])
-          : 0.0,
-        //price: json["price"] is String ? double.parse(json["price"]): json["price"],
+        price: json["price"] is String
+              ? double.parse(json["price"])
+              : json["price"] is int
+                ? (json["price"] as int).toDouble()
+                : json["price"],
     );
 
     Map<String, dynamic> toJson() => {

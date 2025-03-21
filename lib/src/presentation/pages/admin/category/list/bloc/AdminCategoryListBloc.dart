@@ -14,13 +14,17 @@ class AdminCategoryListBloc extends Bloc<AdminCategoryListEvent, AdminCategoryLi
     
   }
 
-  Future <void> _onGetCategories(GetCategories event, Emitter <AdminCategoryListState>emit)async{
+  Future <void> _onGetCategories(GetCategories event, Emitter <AdminCategoryListState>emit) async {
     emit(
       state.copyWith(
         response:Loading()
       )
     );
     Resource response = await categoriesUseCases.getCategories.run();
+
+      print("Tipo de response.data: ${response.data.runtimeType}");
+      print("Contenido de response.data: ${response.data}");
+
     emit(
       state.copyWith(
         response:response

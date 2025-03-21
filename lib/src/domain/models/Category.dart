@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ecommerce_flutter/src/domain/models/Product.dart';
+
 Category categoryFromJson(String str) => Category.fromJson(json.decode(str));
 
 String categoryToJson(Category data) => json.encode(data.toJson());
@@ -20,17 +22,20 @@ class Category {
     static List<Category>fromJsonList(List<dynamic>jsonList){
       List <Category> toList=[];
       jsonList.forEach( (item){
-        Category category =Category.fromJson(item);
+        Category category = Category.fromJson(item);
         toList.add(category);
       });
       return toList;
     }
+
     factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
         name: json["name"],
         description: json["description"],
         image: json["image"],
     );
+
+  get price => null;
 
     Map<String, dynamic> toJson() => {
         "id": id,

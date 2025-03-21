@@ -33,7 +33,7 @@ import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart'
 import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCases.dart'
     as _i578;
 import 'package:ecommerce_flutter/src/domain/useCases/Products/ProductsUseCases.dart'
-    as _i402;
+    as _i467;
 import 'package:ecommerce_flutter/src/domain/useCases/users/UsersUseCases.dart'
     as _i525;
 import 'package:get_it/get_it.dart' as _i174;
@@ -64,7 +64,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i322.AuthUseCases>(() => appModule.authUseCases);
     gh.factory<_i525.UsersUseCases>(() => appModule.usersUseCases);
     gh.factory<_i578.CategoriesUseCases>(() => appModule.categoriesUseCases);
-    gh.factory<_i402.ProductsUseCases>(() => appModule.productsUseCases);
+    gh.factory<_i467.ProductsUseCases>(() => appModule.productsUseCases);
     return this;
   }
 }

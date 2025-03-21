@@ -70,7 +70,7 @@ class CategoriesService {
       final response = await http.get(url, headers: headers);
       final data = json.decode(response.body);
       if(response.statusCode == 200 || response.statusCode == 201){
-        List<Category> categories = Category.fromJsonList(data);
+        List<Category> categories = Category.fromJsonList(data).cast<Category>();
         return Success(categories);
       }
       else { // Error
