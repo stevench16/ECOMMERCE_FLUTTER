@@ -48,7 +48,7 @@ class _AdminCategoryUpdatePageState extends State<AdminCategoryUpdatePage> {
         if (responseState is Success) {
           context.read<AdminCategoryListBloc>().add(GetCategories());
           Fluttertoast.showToast(
-              msg: '¡Categoría Actualida!.',
+              msg: 'Categoría Actualizada.',
               toastLength: Toast.LENGTH_LONG);
         } else if (responseState is Error) {
           Fluttertoast.showToast(

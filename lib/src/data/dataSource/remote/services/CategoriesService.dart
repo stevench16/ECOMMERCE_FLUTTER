@@ -12,21 +12,16 @@ import 'package:path/path.dart';
 
 class CategoriesService {
 
-  SharedPref sharedPref;
-  CategoriesService(this.sharedPref);
+Future<String> token;
+
+CategoriesService(this.token);
 
   Future<Resource<Category>> create(Category category, File file) async {
     try {      
       // http://172.27.44.131:3000/categories
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/categories');
-      String token ="";
-      final userSession = await sharedPref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       final request = http.MultipartRequest('POST', url);
-      request.headers['Authorization'] = token;
+      request.headers['Authorization'] = await token;
       request.files.add(http.MultipartFile(
         'file',
         http.ByteStream(file.openRead().cast()),
@@ -57,20 +52,14 @@ class CategoriesService {
     try {
       // http://172.27.44.131:3000/categories
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/categories');
-      String token ="";
-      final userSession = await sharedPref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       Map<String, String> headers = {
         "Content-Type": "application/json",
-        "Authorization": token
+        "Authorization": await token
       };    
       final response = await http.get(url, headers: headers);
       final data = json.decode(response.body);
       if(response.statusCode == 200 || response.statusCode == 201){
-        List<Category> categories = Category.fromJsonList(data);
+        List<Category> categories = Category.fromJsonList(data).cast<Category>();
         return Success(categories);
       }
       else { // Error
@@ -87,14 +76,8 @@ class CategoriesService {
     try {
       // http://172.27.44.141:3000/categories/upload/id
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/categories/upload/$id');
-      String token ="";
-      final userSession = await sharedPref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       final request = http.MultipartRequest('PUT', url);
-      request.headers['Authorization'] = token;
+      request.headers['Authorization'] = await token;
       request.files.add(http.MultipartFile(
         'file',
         http.ByteStream(file.openRead().cast()),
@@ -125,15 +108,9 @@ class CategoriesService {
     try {
       // http://172.27.44.141:3000/categories/id
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/categories/$id');
-      String token ="";
-      final userSession = await sharedPref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       Map<String, String> headers = {
         "Content-Type": "application/json",
-        "Authorization": token
+        "Authorization": await token
       };
       String body = json.encode({
         'name' : category.name,
@@ -159,15 +136,9 @@ class CategoriesService {
     try {
       // http://172.27.44.141:3000/categories/id
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/categories/$id');
-      String token ="";
-      final userSession = await sharedPref.read('user');
-      if (userSession != null) {
-      AuthResponse authResponse = AuthResponse.fromJson(userSession);
-      token = authResponse.token;
-      }
       Map<String, String> headers = {
         "Content-Type": "application/json",
-        "Authorization": token
+        "Authorization": await token
       };
      
       final response = await http.delete(url, headers: headers);

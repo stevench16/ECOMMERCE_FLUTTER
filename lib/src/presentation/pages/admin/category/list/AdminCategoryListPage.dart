@@ -56,6 +56,9 @@ class _AdminCategoryListPageState extends State<AdminCategoryListPage> {
          child:  BlocBuilder<AdminCategoryListBloc, AdminCategoryListState>(
           builder: (context,state){
             final responseState= state.response;
+            if(responseState is Loading){
+              return Center(child: CircularProgressIndicator(),);
+            }
             if(responseState is Success){
               List <Category> categories = responseState.data as List<Category>;
               return ListView.builder(
