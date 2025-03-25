@@ -15,6 +15,7 @@ import 'package:ecommerce_flutter/src/domain/repository/UsersRepository.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/Products/CreateProductUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/Products/GetProductsByCategoryUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/Products/ProductsUseCases.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/Products/UpdateProductUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/GetUserSessionUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/LoginUseCase.dart';
@@ -98,7 +99,8 @@ abstract class AppModule {
   @injectable
   ProductsUseCases get productsUseCases => ProductsUseCases (
     create: CreateProductUseCase(productsRepository),
-    getProductsByCategory: GetProductsByCategoryUseCase(productsRepository)   
+    getProductsByCategory: GetProductsByCategoryUseCase(productsRepository),
+    update: UpdarteProductUseCase(productsRepository)   
   );
 
 }

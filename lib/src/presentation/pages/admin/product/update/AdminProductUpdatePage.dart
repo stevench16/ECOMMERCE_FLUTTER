@@ -45,16 +45,15 @@ class _AdminProductUpdatePage extends State<AdminProductUpdatePage> {
     } else {
       product = null; // O un valor por defecto
     }
-
     return Scaffold(
       body: BlocListener<AdminProductUpdateBloc, AdminProductUpdateState>(
           listener: (context, state) {
         final responseState = state.response;
         if (responseState is Success) {
           // context.read<AdminCategoryListBloc>().add(GetCategories());
-          _bloc?.add(ResetForm() as AdminProductUpdateEvent);
+          // _bloc?.add(ResetForm() as AdminProductUpdateEvent);
           Fluttertoast.showToast(
-              msg: 'El Producto se creó correctamente.',
+              msg: 'El Producto se actualizo correctamente.',
               toastLength: Toast.LENGTH_LONG);
         } else if (responseState is Error) {
           Fluttertoast.showToast(
