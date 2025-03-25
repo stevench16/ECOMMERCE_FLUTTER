@@ -5,6 +5,8 @@ import 'package:ecommerce_flutter/src/presentation/pages/admin/category/update/A
 import 'package:ecommerce_flutter/src/presentation/pages/admin/home/AdminHomePage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/login/LoginPage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/register/RegisterPage.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/ClientAddressCreatePage.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/address/list/ClientAddressListPage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/home/ClientHomePage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/profile/info/ProfileInfoPage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/profile/update/ProfileUpdatePage.dart';
@@ -46,6 +48,10 @@ class MyApp extends StatelessWidget {
          'admin/home': (BuildContext context) => AdminHomePage(),
          'admin/category/create':(BuildContext context) => AdminCategoryCreatePage(),
          'admin/category/update':(BuildContext context) => AdminCategoryUpdatePage(),
+         'client/address/list':(BuildContext context) => ClientAddressListPage(),
+         'client/address/create':(BuildContext context) => ClientAddressCreatePage(),
+
+
         },
       ),
     );
