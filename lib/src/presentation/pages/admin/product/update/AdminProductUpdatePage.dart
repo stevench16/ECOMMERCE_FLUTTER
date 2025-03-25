@@ -1,15 +1,11 @@
-import 'package:ecommerce_flutter/src/domain/models/Category.dart';
 import 'package:ecommerce_flutter/src/domain/models/Product.dart';
 import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
-import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/AdminProductCreateContent.dart';
-import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/bloc/AdminProductCreateBloc.dart';
-import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/bloc/AdminProductCreateState.dart';
-import 'package:ecommerce_flutter/src/presentation/pages/admin/product/create/bloc/AdminProductCreateEvent.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/product/list/bloc/AdminProductListBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/admin/product/list/bloc/AdminProductListEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/update/AdminProductUpdateContent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/update/bloc/AdminProductUpdateBloc.dart';
-import 'package:ecommerce_flutter/src/presentation/pages/admin/product/update/bloc/AdminProductUpdateEvent.dart' hide ResetForm;
+import 'package:ecommerce_flutter/src/presentation/pages/admin/product/update/bloc/AdminProductUpdateEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/admin/product/update/bloc/AdminProductUpdateState.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -36,6 +32,12 @@ class _AdminProductUpdatePage extends State<AdminProductUpdatePage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _bloc?.add(ResetForm());
+  }
+
+  @override
   Widget build(BuildContext context) {
     _bloc = BlocProvider.of<AdminProductUpdateBloc>(context);
     product = ModalRoute.of(context)?.settings.arguments as Product;
@@ -50,8 +52,8 @@ class _AdminProductUpdatePage extends State<AdminProductUpdatePage> {
           listener: (context, state) {
         final responseState = state.response;
         if (responseState is Success) {
-          // context.read<AdminCategoryListBloc>().add(GetCategories());
-          // _bloc?.add(ResetForm() as AdminProductUpdateEvent);
+           context.read<AdminProductListBloc>().add(GetProductsByCategory(idCategory: product!.idCategory));
+           //_bloc?.add(ResetForm() as AdminProductUpdateEvent);
           Fluttertoast.showToast(
               msg: 'El Producto se actualizo correctamente.',
               toastLength: Toast.LENGTH_LONG);

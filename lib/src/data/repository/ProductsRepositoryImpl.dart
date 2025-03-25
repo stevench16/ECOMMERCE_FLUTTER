@@ -31,4 +31,9 @@ class ProductsRepositoryImpl implements ProductsRepository{
     }
   }
   
+  @override
+  Future<Resource<bool>> delete(int id) {
+    return productsService.delete(id);
+  }
+  
 }

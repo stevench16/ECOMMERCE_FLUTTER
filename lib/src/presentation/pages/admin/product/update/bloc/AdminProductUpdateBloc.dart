@@ -110,7 +110,7 @@ class AdminProductUpdateBloc extends Bloc<AdminProductUpdateEvent, AdminProductU
   Future<void> _onResetForm(
       ResetForm event, Emitter<AdminProductUpdateState> emit) async {
     emit(state.resetForm());
-    //state.formKey?.currentState?.reset();
+    state.formKey?.currentState?.reset();
   }
 
   Future<void> _onPickImage(

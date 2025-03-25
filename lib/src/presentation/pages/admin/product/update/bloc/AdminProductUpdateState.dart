@@ -47,9 +47,8 @@ class AdminProductUpdateState extends Equatable {
 
   AdminProductUpdateState resetForm() {
     return AdminProductUpdateState(
-      name: const BlocFormItem(error: 'Ingrese el nombre de la categoría.'),
-      description:
-          const BlocFormItem(error: 'Ingrese la descripción de la categoría.'),
+      file1: null,
+      file2: null,
     );
   }
 

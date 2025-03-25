@@ -10,6 +10,7 @@ class AdminProductListBloc extends Bloc<AdminProductListEvent, AdminProductListS
 
   AdminProductListBloc(this.productsUseCases): super(AdminProductListState()) {
     on<GetProductsByCategory>(_onGetProductsByCategory);
+    on<DeleteProduct>(_onDeleteProduct);
   }
 
   Future<void> _onGetProductsByCategory(GetProductsByCategory event, Emitter<AdminProductListState> emit) async {
@@ -25,5 +26,19 @@ class AdminProductListBloc extends Bloc<AdminProductListEvent, AdminProductListS
       )
     );
   }
-  
+
+  Future<void> _onDeleteProduct(DeleteProduct event, Emitter<AdminProductListState> emit) async {
+    emit(
+      state.copywith(
+        response: Loading()
+      )
+    );
+    Resource response = await productsUseCases.delete.run(event.id);
+    emit(
+      state.copywith(
+        response: response
+      )
+    );
+  }
 }
+  

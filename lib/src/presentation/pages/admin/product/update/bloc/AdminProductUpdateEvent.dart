@@ -4,6 +4,7 @@ import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:equatable/equatable.dart';
 
 
+
 abstract class AdminProductUpdateEvent extends Equatable{
   const AdminProductUpdateEvent();
   @override
@@ -44,13 +45,6 @@ class FormSubmit extends AdminProductUpdateEvent{
   @override
   List<Object?> get props => [];
 }
-
-class ResetForm extends AdminProductUpdateEvent{
-  const ResetForm();
-  @override
-  List<Object?> get props =>[];
-}
-
 class PickImage extends AdminProductUpdateEvent{
   final int numberFile;
   const PickImage ({required this.numberFile});
@@ -59,4 +53,10 @@ class PickImage extends AdminProductUpdateEvent{
 class TakePhoto extends AdminProductUpdateEvent{
   final int numberFile;
   const TakePhoto ({required this.numberFile});
+}
+
+class ResetForm extends AdminProductUpdateEvent{
+  const ResetForm();
+  @override
+  List<Object?> get props =>[];
 }

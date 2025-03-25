@@ -61,9 +61,9 @@ class _AdminProductListPage extends State<AdminProductListPage>{
           listener: (context, state) {
            final responseState = state.response;
            if(responseState is Success){
-            // if (responseState.data is bool){
-            //   _bloc?.add(GetCategories());
-            // }
+             if (responseState.data is bool){
+               _bloc?.add(GetProductsByCategory(idCategory: category!.id!));
+             }
            }
            if (responseState is Error) {
              Fluttertoast.showToast(msg: responseState.message, toastLength: Toast.LENGTH_LONG);
